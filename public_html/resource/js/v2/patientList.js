@@ -129,5 +129,75 @@
                 patient.append(p); 
 
    }
+//    ------------------------------------------ADD NEW PASIENT-----------------------------------------------------------------------------------
 
+
+function patientList(e) {
+        var json = { kv: {} };
+        console.log(json)
+        try {
+            json.kv.cookie = getToken();
+        } catch (err) {
+       
+        }
+        json.kv.patientName = $("#patientId").val();
+        // json.kv.paraSurname = $('#para1').val();
+        var data = JSON.stringify(json);
+        $.ajax({
+            url: urlGl+"api/post/srv/serviceCrInsertNewPatient",
+            type: "POST",
+            data: data,
+            contentType: "application/json",
+            crossDomain: true,
+            async: false,
+            success: function (res) {
+                //  console.log("ugurlu emeliyyat get", JSON.stringify(res));
+                 getpatientList()
+            },
+            error: function (res, status) {
+            //  lert(getMessage('somethingww'));
+            }
+        });
+        
+}
+function pasientListCombo(res){
+    var patientList = $('#patinetlistcombo');
+       
+    var obj = res.tbl[0].r;
+    console.log( JSON.stringify(res));
+    for (var i = 0; i < obj.length; i++) {
+        var p = $('<option>').append(obj[i].patientName);              
           
+        patientList.append(p); 
+ } 
+}
+
+function getpatientList(e) {
+    var json = { kv: {} };
+    console.log(json)
+    try {
+        json.kv.cookie = getToken();
+    } catch (err) {
+   
+    }
+    json.kv.patientName = $("#patientId").val();
+    // json.kv.paraSurname = $('#para1').val();
+    var data = JSON.stringify(json);
+    $.ajax({
+        url: urlGl+"api/post/srv/serviceCrGetPatientList",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (res) {
+             console.log("ugurlu emeliyyat get", JSON.stringify(res));
+             pasientListCombo(res)
+        },
+        error: function (res, status) {
+        //  lert(getMessage('somethingww'));
+        }
+    });
+    
+}
+

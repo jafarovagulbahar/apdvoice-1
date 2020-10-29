@@ -40,13 +40,13 @@
     <header id="header" class="fixed-top">
 
         <div class="container d-flex align-items-center">
-            <a href="index.html" class="logo mr-auto"><img src="resource/img/logo.png" alt="" class="img-fluid"></a>
+            <a href="#" class="logo mr-auto"><img src="resource/img/logo.png" alt="" class="img-fluid"></a>
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
                     <!-- Home Navbar menu -->
                     <li class="drop-down"><a href="#">Ana səhifə <i class="fa fa-angle-down"></i></a>
                         <ul>
-                            <li class="dropMenu"> <a href="index.html">Pasient data</a></li>
+                            <li class="dropMenu"> <a href="p2.html">Pasient data</a></li>
                             <li class="dropMenu"> <a href="patientList.html">Pasientlər</a></li>
                         </ul>
                     </li>
@@ -123,13 +123,13 @@
                             <div class="d-flex">
                                 <div class="form-group">
                                     <div class="form-field">
-                                        <div class="main">                    
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Pasientler</option>
-                                                <option value="">BB</option>
-                                                <option value="">CC</option>
-                                                <option value="">DD</option>
-                                                <option value="">EEE</option>
+                                        <div class="main" id="">                    
+                                            <select name="" id="patinetlistcombo" class="form-control">
+                                                <option value="" class="apd-editable-combo-li">Pasientler</option>
+                                                <!-- <option value="" class="apd-editable-combo-li">BB</option>
+                                                <option value="" class="apd-editable-combo-li">CC</option>
+                                                <option value="" class="apd-editable-combo-li">DD</option>
+                                                <option value="" class="apd-editable-combo-li">EEE</option> -->
 
                                             </select>
                                         </div>
@@ -208,17 +208,17 @@
 
                         <div class="form-group col-md-4"> 
                             <label qlang="">Param 1</label> 
-                            <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=" "> 
+                            <input class="form-control  apd-form-input" type="text" id="para1" name="" placeholder=" "> 
                         </div>
 
                         <div class="form-group col-md-4"> 
                             <label qlang="">Param 2</label> 
-                            <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=" "> 
+                            <input class="form-control  apd-form-input" type="text" id="para2" name="" placeholder=" "> 
                         </div>
 
                         <div class="form-group col-md-4"> 
                             <label for="example-date-input">Doğum Tarixi</label>
-                            <input class="form-control apd-form-input" type="date" value="date" id="example-date-input">
+                            <input class="form-control apd-form-input" type="date" value="date" id="birth-date">
                         </div>
 
                         <div class="form-group col-md-4 patientSelectBox"> 
@@ -299,7 +299,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="patinetList()">Əlavə Et</button>
+                <button type="button" class="btn btn-secondary apd-form-btn" data-dismiss="modal" id="insertNewPatientBtn" onclick="patientList()">Əlavə Et</button>
                     <button type="button" class="btn btn-light">Bağla</button>
                 </div>
             </div>
@@ -707,6 +707,8 @@
 
 
     <script src="resource/js/jquery.min.js"></script>
+    <script src="resource/js/link.js"></script>
+    <script src="resource/js/apd-common.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="resource/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -719,20 +721,34 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script>
-
-
-    
-
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script>  
 
     <script src="resource/js/v2/main.js"></script>
     <script src="resource/js/v2/selectBox.js"></script>
     <script src="resource/js/v2/patientList.js"></script>
     <script src="resource/js/v2/doctorDataTable.js"></script>
+
     <script type="text/javascript">
 
                         $(document).ready(function () {
- 
+
+                            $('a').click(function (event) {
+                    link=$(this).attr('href');
+                    $.ajax({
+                        url: link,
+                    })
+                    .done(function (html) {
+                        $('#page').empty().append(html);
+                    })
+                    .fail(function () {
+                        console.log('error');
+                    })
+                    .always(function(){
+                        console.log('complate');
+                    })
+                    return false;
+                });
+
                             $("div[id^='myModal']").each(function () {
 
                                 var currentModal = $(this);
