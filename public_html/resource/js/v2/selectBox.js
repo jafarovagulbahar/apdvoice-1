@@ -1,8 +1,15 @@
 function create_custom_dropdowns() {
     
     $('select').each(function (i, select) {
+     
+
         if (!$(this).next().hasClass('dropdown-select')) {
-            $(this).after('<div class="dropdown-select wide ' + ($(this).attr('class') || '') + '" tabindex="0"><span class="current"></span><div class="list"><ul></ul></div></div>');
+            $(this).after($('<div class="dropdown-select wide ' + ($(this).attr('class') || '') + '" tabindex="0"  onclick="pasientFilter()">')
+            .append($('<span>').addClass('current'))
+            .append($('<div>').addClass('list').append($('<ul>').attr('id','aa'))))
+     
+
+
             var dropdown = $(this).next();
             var options = $(select).find('option');
             var selected = $(this).find('option:selected');
@@ -14,12 +21,16 @@ function create_custom_dropdowns() {
         }
     });
 
-    $('.dropdown-select ul').before('<div class="dd-search"><input id="txtSearchValue" autocomplete="off" onkeyup="filter()" class="dd-searchbox" type="text"></div>');
+    $('.dropdown-select ul').before('<div class="dd-search"><input id="" autocomplete="off" onkeyup="filter()" class="dd-searchbox" type="text"></div>');
 }
+
 
 // Event listeners
 
-// Open/close
+
+
+$(document).ready(function () {
+    // Open/close
 $(document).on('click', '.dropdown-select', function (event) {
     if($(event.target).hasClass('dd-searchbox')){
         return;
@@ -99,7 +110,5 @@ $(document).on('keydown', '.dropdown-select', function (event) {
         return false;
     }
 });
-
-$(document).ready(function () {
     create_custom_dropdowns();
 });

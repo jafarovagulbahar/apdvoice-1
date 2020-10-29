@@ -82,20 +82,20 @@
 
 
    
-   function patinetList(){
+//    function patinetList(){
   
-   $('.dataTables_empty').css('display','none')
+//    $('.dataTables_empty').css('display','none')
      
-    var patient= $('#paseinetListTbody'); 
+//     var patient= $('#paseinetListTbody'); 
 
-    var patientId=$('#patientId').val();
-    var gander=$('select#gander option:checked').val();
-    var prof=$('select#prof option:checked').val();
-    var family=$('select#family option:checked').val();
-    var edu=$('select#edu option:checked').val();
-    var bloodGroup=$('select#bloodGroup option:checked').val();
-    var rhFactor=$('select#rhFactor option:checked').val();
-    var city=$('select#city option:checked').val();
+//     var patientId=$('#patientId').val();
+//     var gander=$('select#gander option:checked').val();
+//     var prof=$('select#prof option:checked').val();
+//     var family=$('select#family option:checked').val();
+//     var edu=$('select#edu option:checked').val();
+//     var bloodGroup=$('select#bloodGroup option:checked').val();
+//     var rhFactor=$('select#rhFactor option:checked').val();
+//     var city=$('select#city option:checked').val();
 
             // append($('<thead>').append($('<tr>')
             // 	.append($('<th>').append('№'))
@@ -112,25 +112,50 @@
             // 	.append($('<th>').append('Şəhər'))
             // 	.append($('<th>').append('İzahat')) ))
 
-            var p=$('<tr>')
-                .append($('<td>').append('1'))
-                .append($('<td>').append(patientId))
-                .append($('<td>').append(gander))
-                .append($('<td>').append(prof))
-                .append($('<td>').append('a'))
-                .append($('<td>').append(family))
-                .append($('<td>').append(edu))
-                .append($('<td>').append(bloodGroup))
-                .append($('<td>').append(rhFactor))
-                .append($('<td>').append(city))
-                .append($('<td>').append('11')) 
+//             var p=$('<tr>')
+//                 .append($('<td>').append('1'))
+//                 .append($('<td>').append(patientId))
+//                 .append($('<td>').append(gander))
+//                 .append($('<td>').append(prof))
+//                 .append($('<td>').append('a'))
+//                 .append($('<td>').append(family))
+//                 .append($('<td>').append(edu))
+//                 .append($('<td>').append(bloodGroup))
+//                 .append($('<td>').append(rhFactor))
+//                 .append($('<td>').append(city))
+//                 .append($('<td>').append('11')) 
                
           
-                patient.append(p); 
+//                 patient.append(p); 
 
-   }
+//    }
 //    ------------------------------------------ADD NEW PASIENT-----------------------------------------------------------------------------------
 
+// patient selectbox value append
+$(document).on("click",'#patinetlistcombo li a', function (e) {
+    ulVal= $(this).parent().find('input').val();
+     document.getElementById('pasientInput').value=ulVal;
+    
+ });
+
+//patient list search
+ $(document).on("keyup",'#pasientInput', function (e) {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("pasientInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("patinetlistcombo");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  })
+
+// START AJAX CODE
 
 function patientList(e) {
         var json = { kv: {} };
@@ -141,7 +166,6 @@ function patientList(e) {
        
         }
         json.kv.patientName = $("#patientId").val();
-        // json.kv.paraSurname = $('#para1').val();
         var data = JSON.stringify(json);
         $.ajax({
             url: urlGl+"api/post/srv/serviceCrInsertNewPatient",
@@ -161,13 +185,13 @@ function patientList(e) {
         
 }
 function pasientListCombo(res){
-    var patientList = $('#patinetlistcombo');
+    var patientList = $('#patinetlistcombo').html('');
        
     var obj = res.tbl[0].r;
     console.log( JSON.stringify(res));
     for (var i = 0; i < obj.length; i++) {
-        var p = $('<option>').append(obj[i].patientName);              
-          
+        var p = $('<li>').append($('<input>').attr('type','hidden').attr( 'value',obj[i].patientName))
+        .append($('<a>').attr('href','#').attr('data-value', obj[i].patientName ).append(obj[i].patientName));                        
         patientList.append(p); 
  } 
 }
@@ -181,7 +205,6 @@ function getpatientList(e) {
    
     }
     json.kv.patientName = $("#patientId").val();
-    // json.kv.paraSurname = $('#para1').val();
     var data = JSON.stringify(json);
     $.ajax({
         url: urlGl+"api/post/srv/serviceCrGetPatientList",
@@ -201,3 +224,30 @@ function getpatientList(e) {
     
 }
 
+function pasientFilter() {
+    var json = { kv: {} };
+    console.log(json)
+    try {
+        json.kv.cookie = getToken();
+    } catch (err) {
+   
+    }
+    json.kv.patientName = $("#patientId").val();
+    var data = JSON.stringify(json);
+    $.ajax({
+        url: urlGl+"api/post/srv/serviceCrGetPatientList4Combo",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (res) {
+             console.log("ugurlu emeliyyat get", JSON.stringify(res));
+             pasientListCombo(res)
+        },
+        error: function (res, status) {
+        //  lert(getMessage('somethingww'));
+        }
+    });
+    
+}

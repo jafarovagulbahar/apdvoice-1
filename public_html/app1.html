@@ -118,20 +118,21 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6  col-md-12">
+                    <div class="col-lg-6  col-md-12" >
                         <div class="appointment-form-intro">
                             <div class="d-flex">
                                 <div class="form-group">
                                     <div class="form-field">
-                                        <div class="main" id="">                    
-                                            <select name="" id="patinetlistcombo" class="form-control">
-                                                <option value="" class="apd-editable-combo-li">Pasientler</option>
-                                                <!-- <option value="" class="apd-editable-combo-li">BB</option>
-                                                <option value="" class="apd-editable-combo-li">CC</option>
-                                                <option value="" class="apd-editable-combo-li">DD</option>
-                                                <option value="" class="apd-editable-combo-li">EEE</option> -->
+                                        <div class="main patientSelectBox" id="">                    
+                                          <div class="dropdown dropdown-select " >
+                                            <span class="caret"></span>
+                                            <input type="text" class="form-control" placeholder="Pasientlər" autocomplete="off" id="pasientInput" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" onclick="pasientFilter()"/>
+                                            
+                                              <ul class="dropdown-menu" aria-labelledby="dropPasient" id="patinetlistcombo">
+                                              
+                                             </ul>
+                                          </div>
 
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -724,7 +725,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script>  
 
     <script src="resource/js/v2/main.js"></script>
-    <script src="resource/js/v2/selectBox.js"></script>
+    <!-- <script src="resource/js/v2/selectBox.js"></script> -->
     <script src="resource/js/v2/patientList.js"></script>
     <script src="resource/js/v2/doctorDataTable.js"></script>
 

@@ -451,12 +451,31 @@ width: 30%;
   width:auto;
 }
 }
-/* .appointment-form-intro select {
-display: none !important;
-} */
 
-.dropdown-select {
-  display: none !important;
+.patientSelectBox {
+  display:grid;
+}
+.dropdown-menu{
+  height: 200px;
+  overflow: auto;
+  will-change: transform;
+  width: 510px;
+  border: none;
+  line-height: 2;
+  position: absolute;
+  transform: translate3d(0px, 56px, 0px);
+  top: 0px;
+  left: 0px;
+  box-shadow: 1px 2px 5px 0px #8c8e9c;
+  overflow: auto;
+  border-radius: 10px;
+  top: 11px;
+  margin-top: 7px;
+  transition: all 0.15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity 0.1s linear;
+}
+
+.patientSelectBox select{
+  /* display: none !important; */
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#40FFFFFF', endColorstr='#00FFFFFF', GradientType=0);
@@ -490,20 +509,7 @@ display: none !important;
 
 }
 
-.dropdown-select:focus {
-  background-color: #fff;
-}
 
-.dropdown-select:hover {
-  background-color: #fff;
-}
-
-.dropdown-select:active,
-.dropdown-select.open {
-  background-color: #fff !important;
-  border-color: #bbb;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) inset;
-}
 
 .dropdown-select:after {
   height: 0;
@@ -617,7 +623,7 @@ border-color:#12CBC4;
   background-color: #f6f6f6 !important;
 }
 
-.dropdown-select .option.selected {
+.dropdown-select li.active {
   font-weight: 600;
   color: #12cbc4;
 }
@@ -627,15 +633,26 @@ border-color:#12CBC4;
 }
 
 .dropdown-select a {
-  color: #aaa;
+  color:#000000;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
 }
 
 .dropdown-select a:hover {
-  color: #666;
+  color: #12cbc4;;
 }
 
+/* ----- */
+#patinetlistcombo li:hover{
+  background-color: #f8f8f8;
+}
+#patinetlistcombo li{
+  position: relative;
+}
+#patinetlistcombo li a{
+  position: relative;
+  padding: 5px 35px;
+}
 
 /*-------------------------------------
 MAIN SELEXBOX
@@ -664,13 +681,15 @@ padding-right: 20px;
 background: #fff !important;
 color: rgba(0, 0, 0, 0.5) !important;
 font-size: 16px;
-border-radius: 0;
+border-radius: 30px;
+
 -webkit-box-shadow: none !important;
 box-shadow: none !important; }
 
 .btn-custom b{
   margin: auto;
 }
+
 .appointment-form-intro .btn-custom {
 width: 100%;
 font-size: 13px;
@@ -691,6 +710,15 @@ display:flex;}
   background: #064988 !important;
   color: #fff !important;
   border-color: #299adc !important; }
+
+.patientFilterInput{
+  border-radius: 30px;
+    height: 56px;
+    position: relative;
+    width: 100%;
+    border: none;
+
+}
 
 /* -------------------------------------------
 Medicine desc buttons
@@ -773,13 +801,6 @@ MY account
 ----------------------------------------------- */
 .profile-image{
   width:  26px;
-  /* height: 29px;
-  font-size: 19px;
-  border: 1px solid;
-  border-radius: 50%;
-  padding: -2px;
-  padding: 2px 0px 0px 6px;
-  background-color: #f2f2ff; */
 }
 
   .divider{
@@ -936,9 +957,9 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
 .patinetAddModalBody .form-group{
   margin-bottom: 5px;
 }
-.patientSelectBox select{
+/* .patientSelectBox select{
   display: none;
-}
+} */
 .noSearch #txtSearchValue{
   display: none;
 }
@@ -956,5 +977,6 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
 .dropMenuQues{
   height: 300px;
   overflow: auto;
+
   
 }
