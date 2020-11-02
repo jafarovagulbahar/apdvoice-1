@@ -108,8 +108,8 @@
                         <div class="banner">
                             <nav class="nav-menu2">
                                 <ul >
-                                    <li ><a href="#"><i class="fa fa-heartbeat"></i><span>Yeni Sessiya</span></a></li>
-                                    <li><a href="#"><i class="fa fa-medkit" aria-hidden="true"></i><span>Sessiyanı bitir</span></a></li>
+                                    <li ><a href="#" data-toggle="modal" data-target="#newSessiaModal"  ><i class="fa fa-heartbeat"></i><span>Yeni Sessiya</span></a></li>
+                                    <li><a href="#"><i class="fa fa-medkit" aria-hidden="true" onclick="aa()"></i><span>Sessiyanı bitir</span></a></li>
                                     <li><a href="#"><i class="fa fa-user-md" aria-hidden="true"></i><span>Müayinə siyahisi</span></a></li>
                                     <li><a href="#"><i class="fa fa-stethoscope" aria-hidden="true"></i><span>Sessiya siyahisi</span></a></li>
                                     <li><a href="#"><i class="fa fa-print" aria-hidden="true"></i><span>Hesabat/Print</span></a></li>
@@ -144,31 +144,11 @@
                     </div>
                 </div>   
             </div>
-            <button onclick="doctorDataTable()">doctor table</button>
+            <button onclick="GetAppointmentList()">doctor table</button>
             <div class="content">   
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style="color:black">
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Suallar</th>
-                            <th>Status</th>
-                            <th>Təyinat</th>
-                            <th>Tarix</th>
-                            <th>Saat(dan)</th>
-                            <th>Saat(a)</th>
-                            <th>Status</th>
-                            <th>Patient ID</th>
-                            <th>Həkim</th>
-                            <th>Cinsiyyət</th>
-                            <th>Modul adı</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody id="DoctorDataTable">
-                        
-
-
-                    </tbody>
+                    <thead id="DoctorDataTableHeader"> </thead>
+                    <tbody id="DoctorDataTable">  </tbody>
                 </table>
 
                 <footer class="footer">
@@ -294,7 +274,7 @@
 
                         <div class="form-group col-md-4 patientSelectBox" id="city">  
                             <label qlang="">Şəhər</label> 
-                            <input class="form-control apd-form-input" type="text" id="patientName" name="patientName" placeholder=" "> 
+                            <input class="form-control apd-form-input" type="text" id="" name="" placeholder=" "> 
                         </div>
 
                     </div>
@@ -306,6 +286,66 @@
             </div>
         </div>
     </div>
+   <!-- New sessia Modal -->
+
+   <div class="modal fade" id="newSessiaModal" tabindex="-1" role="dialog" aria-labelledby="newSessiaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newSessiaModalLabel">Yeni sessiya əlavə et</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="addNewSessia">
+          <!-- <div class="row">
+            <div class="form-group col-md-4 patientSelectBox"> 
+                <label qlang="">Həkim</label> 
+                 <select class="noSearch selectStyle"  id="doctor">
+                  <option class="active">nn</option>
+                </select>
+            </div>
+            
+            <div class="form-group col-md-4"> 
+                <label qlang=""><i class="fa fa-user"></i> Patient ID </label> 
+                <input class="form-control   apd-form-input"  type="text" id="patient" name="" > 
+             </div>
+
+             <div class="form-group col-md-4 patientSelectBox"> 
+                <label qlang="">Təyinat</label> 
+                 <select class="noSearch selectStyle" id="teyinat">
+                  <option class="active" ></option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4"> 
+                <label for="example-date-input">Tarix</label>
+                <input class="form-control apd-form-input" type="date" value="date" id="data">
+            </div>
+
+            <div class="form-group col-md-2"> 
+                <label for="example-date-input">Saat (dan)</label>
+                <input class="form-control apd-form-input" type="time" value="time" id="time1">
+            </div>
+            <div class="form-group col-md-2"> 
+                <label for="example-date-input">Saat (a)</label>
+                <input class="form-control apd-form-input" type="time" value="time" id="time2">
+            </div>
+
+            <div class="form-group col-md-12"> 
+                <label for="example-date-input">İzahat</label>
+                <input class="form-control apd-form-input" type="text" value="" id="">
+            </div>
+
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+          <button type="button" class="btn btn-primary" onclick="InsertNewSessia()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -364,7 +404,7 @@
                       <input class="form-control  apd-form-input" disabled type="text" id="" name="" placeholder="34FF"> 
                      </div>
      
-                      <div class="form-group col-md-4 patientSelectBox"> 
+                    <div class="form-group col-md-4 patientSelectBox"> 
                       <label qlang="">Səsdə Yorulma</label> 
                        <select class="noSearch selectStyle" >
                         <option class="active"></option>
@@ -466,7 +506,7 @@
      
                        <div class="form-group col-md-4 patientSelectBox"> 
                       <label qlang="">İzahat</label> 
-                         <input class="form-control  apd-form-input" type="text" id="patientName" name="patientName" placeholder=" "> 
+                         <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=" "> 
                      </div>    
      
                          </div>
@@ -668,27 +708,27 @@
 
                                 <div class="form-group col-md-4 patientSelectBox"> 
                                     <label qlang="">İstifadə etdiyini dərmanlar və zamanı</label> 
-                                    <input class="form-control  apd-form-input" type="text" id="patientName" name="patientName" placeholder=""> 
+                                    <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=""> 
                                 </div>
 
                                 <div class="form-group col-md-4 patientSelectBox"> 
                                     <label qlang="">Keçirilmiş əməliyyatlar</label> 
-                                    <input class="form-control  apd-form-input" type="text" id="patientName" name="patientName" placeholder=""> 
+                                    <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=""> 
                                 </div>
 
                                 <div class="form-group col-md-4 patientSelectBox"> 
                                     <label qlang="">Səs cərrahiyəsi</label> 
-                                    <input class="form-control  apd-form-input" type="text" id="patientName" name="patientName" placeholder=""> 
+                                    <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=""> 
                                 </div>
 
                                 <div class="form-group col-md-4 patientSelectBox"> 
                                     <label qlang="">Allergik xəstəlik və dərmanlar(ətraflı)</label> 
-                                    <input class="form-control  apd-form-input" type="text" id="patientName" name="patientName" placeholder=""> 
+                                    <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=""> 
                                 </div>
 
                                 <div class="form-group col-md-4 patientSelectBox"> 
                                     <label qlang="">Reflüks/dərman(ətraflı)</label> 
-                                    <input class="form-control  apd-form-input" type="text" id="patientName" name="patientName" placeholder=""> 
+                                    <input class="form-control  apd-form-input" type="text" id="" name="" placeholder=""> 
                                 </div>
 
 
@@ -731,85 +771,22 @@
 
     <script type="text/javascript">
 
-                        $(document).ready(function () {
-
-                            $('a').click(function (event) {
-                    link=$(this).attr('href');
-                    $.ajax({
-                        url: link,
-                    })
-                    .done(function (html) {
-                        $('#page').empty().append(html);
-                    })
-                    .fail(function () {
-                        console.log('error');
-                    })
-                    .always(function(){
-                        console.log('complate');
-                    })
-                    return false;
-                });
-
-                            $("div[id^='myModal']").each(function () {
-
-                                var currentModal = $(this);
-
-                                //click next
-                                currentModal.find('.btn-next').click(function () {
-                                    currentModal.modal('hide');
-                                    currentModal.closest("div[id^='myModal']").nextAll("div[id^='myModal']").first().modal('show');
-                                });
-
-                                //click prev
-                                currentModal.find('.btn-prev').click(function () {
-                                    currentModal.modal('hide');
-                                    currentModal.closest("div[id^='myModal']").prevAll("div[id^='myModal']").first().modal('show');
-                                });
-
-                            });
-
-
-                            $('#example').DataTable({
-                                "dom": 'Bfrltip',
-
-                                responsive: true,
-                                "paging": true,
-                                "autoWidth": true,
-                                "buttons": [
-                                    {
-                                        extend: 'colvis',
-                                        text: function (dt, button, config) {
-                                            return dt.i18n('buttons.colvis', 'Column');
-                                        }
-                                    }
-                                    ,
-                                    'copyHtml5',
-                                    'excelHtml5',
-                                    'pdfHtml5',
-                                    'print',
-                                ],
-
-                                initComplete: function () {
-                                    $('.buttons-copy').html('<i class="fa fa-copy" />')
-
-                                    $('.buttons-excel').html('<i class="fa fa-file-excel-o" />')
-                                    $('.buttons-pdf').html('<i class="fa fa-file-pdf-o" />')
-                                    $('.buttons-print').html('<i class="fa fa-print" />')
-
-                                },
-
-                                "language": {
-                                    "lengthMenu": " _MENU_ ",
-                                    "search": "",
-
-                                    paginate: {
-                                        next: '<i class="fa fa-angle-double-right">',
-                                        previous: '<i class="fa fa-angle-double-left">'
-                                    }
-                                },
-
-                            });
-                        });
+            //             $('a').click(function (event) {
+    //     link=$(this).attr('href');
+    //     $.ajax({
+    //         url: link,
+    //     })
+    //     .done(function (html) {
+    //         $('#page').empty().append(html);
+    //     })
+    //     .fail(function () {
+    //         console.log('error');
+    //     })
+    //     .always(function(){
+    //         console.log('complate');
+    //     })
+    //     return false;
+    // });
     </script>
 </body>
 

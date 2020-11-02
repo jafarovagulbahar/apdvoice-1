@@ -459,7 +459,6 @@ width: 30%;
   height: 200px;
   overflow: auto;
   will-change: transform;
-  width: 510px;
   border: none;
   line-height: 2;
   position: absolute;
@@ -489,7 +488,7 @@ width: 30%;
   float: left;
   font-size: 14px;
   font-weight: normal;
-  height: 42px;
+  height: 33px;
   line-height: 40px;
   outline: none;
   padding-left: 18px;
@@ -505,6 +504,8 @@ width: 30%;
   width: auto;
   border-top-left-radius: 50px !important;
   border-bottom-left-radius: 50px !important;
+  border-top-right-radius: 50px !important;
+  border-bottom-right-radius: 50px !important;
 
 
 }
@@ -830,6 +831,7 @@ MY account
     background-color: #ffffff;
     box-shadow: 0px 1px 5px #aba8d4;
     border-radius: 10px;
+    padding: 3px 12px;
   }
   .ui-state-active, 
   .ui-widget-content .ui-state-active, 
@@ -947,14 +949,14 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
   padding-left: 14px;
   padding-right: 14px;
 }
-.patinetAddModalBody label {
+ label {
     font-weight: 600;
     color: #555;
     font-size: 12px;
     margin-bottom: 3px;
     margin-left: 10px;
 }
-.patinetAddModalBody .form-group{
+ .form-group{
   margin-bottom: 5px;
 }
 /* .patientSelectBox select{
