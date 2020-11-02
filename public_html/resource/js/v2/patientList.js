@@ -472,15 +472,15 @@ function addNewSessiaArea(){
          ))
 
          .append($('<div>').addClass('form-group apd-form col-md-4')
-         .append($('<label>').append('Tarix'))
+         .append($('<label>').addClass('timesLabel').append('Tarix').append($('<span>').addClass('mandatoryIcon').append('*')))
          .append($('<input>').addClass('form-control apd-form-input').attr('type','date').attr('id','dateSessia').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
-         .append($('<label>').append('Saat (dan)'))
+         .append($('<label>').addClass('timesLabel').append('Saat (dan)').append($('<span>').addClass('mandatoryIcon').append('*')))
          .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time1').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
-         .append($('<label>').append('Saat (a)'))
+         .append($('<label>').addClass('timesLabel').append('Saat (a)').append($('<span>').addClass('mandatoryIcon').append('*')))
          .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time2').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
@@ -562,7 +562,10 @@ function GetNewSessiaPurpose() {
 
 
 function InsertNewSessia() {
-    
+    var isNow = $("#currentTime").prop('checked');
+    var date =$('#dateSessia').val()
+    var Time1 =  $('#time1').val();
+    var Time2 =  $('#time2').val();
     var json = { kv: {} };
    
     try {
@@ -575,7 +578,7 @@ function InsertNewSessia() {
     json.kv.fkDoctorUserId = $( "#doctor option:selected" ).val();
     json.kv.appointmentDate = $('#dateSessia').val();
     json.kv.appointmentTime1 =  $('#time1').val();
-    json.kv.appointmentTime2 =  $('#time1').val();
+    json.kv.appointmentTime2 =  $('#time2').val();
     json.kv.isNow = $("#currentTime").prop('checked');
     json.kv.description = $('#sessiaText').val();
     json.kv.fkPriceListId = $('#purposeSessia option:selected').val();
@@ -590,6 +593,12 @@ function InsertNewSessia() {
         async: false,
         success: function (res) {
             console.log("ugurlu emeliyyat get", JSON.stringify(res));
+
+            if(isNow==false && (date=='' || Time1=='' || Time2=='' )){
+               $('.mandatoryIcon').css('display','block')
+            }else{
+                $('.mandatoryIcon').css('display','none')
+            }
         },
         error: function (res, status) {
         //  lert(getMessage('somethingww'));
@@ -598,9 +607,9 @@ function InsertNewSessia() {
 }
 
 function toggleSessionDate(el) {
-   
-    var isnow = $(el).closest(".apd-form").find("#currentTime").prop('checked');
 
+
+    var isnow = $(el).closest(".apd-form").find("#currentTime").prop('checked');
     console.log(isnow)
     if (isnow===false) {
         $("#dateSessia").prop('disabled',false);
@@ -615,7 +624,9 @@ function toggleSessionDate(el) {
         $('#time1').val('');
         $('#time2').val('');
     }
+   
 }
+
 
 
 // end NEW SESSIA-------------------------------------------
