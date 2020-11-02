@@ -461,30 +461,35 @@ function addNewSessiaArea(){
         //  .append($('<option>').append(doctor.userPersonName,  doctor.userPersonSurname, doctor.userPersonMiddlename))
          ))
       
-         .append($('<div>').addClass('form-group col-md-4')
+         .append($('<div>').addClass('form-group apd-form col-md-4')
          .append($('<label>').append('Patient'))
-         .append($('<input>').addClass('form-control apd-form-input').attr('id','patientSessiaId').attr('type','text').attr('value', '').prop('disabled',true)) )
+         .append($('<input>').addClass('form-control apd-form-input').attr('id','patientSessiaId').attr('type','text').prop('disabled',true)) )
 
-         .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
+         .append($('<div>').addClass('form-group apd-form col-md-4 patientSelectBox')
          .append($('<label>').append('Təyinat'))
          .append($('<select>').addClass('noSearch selectStyle').attr('id','purposeSessia')
         //  .append($('<option>').append(o.paymentName))
          ))
 
-         .append($('<div>').addClass('form-group col-md-4')
+         .append($('<div>').addClass('form-group apd-form col-md-4')
          .append($('<label>').append('Tarix'))
-         .append($('<input>').addClass('form-control apd-form-input').attr('type','date').attr('id','dateSessia')) )
+         .append($('<input>').addClass('form-control apd-form-input').attr('type','date').attr('id','dateSessia').prop('disabled',true)) )
 
-         .append($('<div>').addClass('form-group col-md-2')
+         .append($('<div>').addClass('form-group apd-form col-md-2')
          .append($('<label>').append('Saat (dan)'))
-         .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time1')) )
+         .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time1').prop('disabled',true)) )
 
-         .append($('<div>').addClass('form-group col-md-2')
+         .append($('<div>').addClass('form-group apd-form col-md-2')
          .append($('<label>').append('Saat (a)'))
-         .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time2')) )
+         .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time2').prop('disabled',true)) )
 
+         .append($('<div>').addClass('form-group apd-form col-md-2')
+         .append($('<label>').addClass('isNowLabel').append($('<input>').attr('type','checkbox').addClass('toDoLi').attr('id','currentTime').prop('checked',true).attr('onclick','toggleSessionDate(this)'))
+         .append($('<span>').addClass('okay'))  
+         .append($('<label>').append('İndi'))
+         ))
 
-         .append($('<div>').addClass('form-group col-md-12')
+         .append($('<div>').addClass('form-group apd-form col-md-12')
          .append($('<label>').append('İzahat'))
          .append($('<input>').addClass('form-control apd-form-input').attr('type','text').attr('id','sessiaText')) )     
        
@@ -556,7 +561,7 @@ function GetNewSessiaPurpose() {
 }
 
 
-function InsertNewSessia(e) {
+function InsertNewSessia() {
     
     var json = { kv: {} };
    
@@ -569,9 +574,9 @@ function InsertNewSessia(e) {
     json.kv.fkPatientId = $("#patientSessiaId").val();
     json.kv.fkDoctorUserId = $( "#doctor option:selected" ).val();
     json.kv.appointmentDate = $('#dateSessia').val();
-    json.kv.appointmentTime1 =  $('#time1').val();;
-    json.kv.appointmentTime2 =  $('#time1').val();;
-    json.kv.isNow = true;
+    json.kv.appointmentTime1 =  $('#time1').val();
+    json.kv.appointmentTime2 =  $('#time1').val();
+    json.kv.isNow = $("#currentTime").prop('checked');
     json.kv.description = $('#sessiaText').val();
     json.kv.fkPriceListId = $('#purposeSessia option:selected').val();
 
@@ -591,6 +596,27 @@ function InsertNewSessia(e) {
         }
     });      
 }
+
+function toggleSessionDate(el) {
+   
+    var isnow = $(el).closest(".apd-form").find("#currentTime").prop('checked');
+
+    console.log(isnow)
+    if (isnow===false) {
+        $("#dateSessia").prop('disabled',false);
+        $("#time1").prop('disabled',false);
+        $("#time2").prop('disabled',false);
+
+    } else {
+        $("#dateSessia").prop('disabled',true);
+        $("#time1").prop('disabled',true);
+        $("#time2").prop('disabled',true);
+        $('#dateSessia').val('');
+        $('#time1').val('');
+        $('#time2').val('');
+    }
+}
+
 
 // end NEW SESSIA-------------------------------------------
 

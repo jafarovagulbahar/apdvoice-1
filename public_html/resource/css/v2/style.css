@@ -959,9 +959,7 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
  .form-group{
   margin-bottom: 5px;
 }
-/* .patientSelectBox select{
-  display: none;
-} */
+
 .noSearch #txtSearchValue{
   display: none;
 }
@@ -979,6 +977,35 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
 .dropMenuQues{
   height: 300px;
   overflow: auto;
+}
 
-  
+/* NewSessiaModal in checkbox */
+.isNowLabel .okay {
+  height: 23px;
+  width: 23px;
+  border: 1px solid grey;
+  display: inline-block;
+  position: relative;
+  top: 0px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.isNowLabel{
+  margin-top: 26px;
+  width: 100%;
+  display: flex;
+}
+
+.isNowLabel .toDoLi{
+	display: none;
+}
+[type=checkbox]:checked + span:before {
+  content: '\2714';
+  position: absolute;
+  top: -13px;
+  left: 0;
+  font-size: 26px;
+}
+.form-control[disabled], fieldset[disabled] .form-control {
+  cursor: not-allowed;
 }
