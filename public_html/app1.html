@@ -35,7 +35,6 @@
 
     </head>
 
-
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
 
@@ -46,8 +45,8 @@
                     <!-- Home Navbar menu -->
                     <li class="drop-down"><a href="#">Ana səhifə <i class="fa fa-angle-down"></i></a>
                         <ul>
-                            <li class="dropMenu"> <a href="p2.html">Pasient data</a></li>
-                            <li class="dropMenu"> <a href="patientList.html">Pasientlər</a></li>
+                            <li class="dropMenu"> <a href="#">Pasient data</a></li>
+                            <li class="dropMenu"> <a href="pasientTable.html">Pasientlər</a></li>
                         </ul>
                     </li>
                     <!-- Finance Navbar menu -->
@@ -98,6 +97,7 @@
         </div>
     </header><!-- End Header -->
 
+   <div class="page">
     <!-- ======= patient List ======= -->
     <section id="apdDataList " class="patientList">
         <div class="container">     
@@ -108,8 +108,8 @@
                         <div class="banner">
                             <nav class="nav-menu2">
                                 <ul >
-                                    <li ><a href="#" data-toggle="modal" data-target="#newSessiaModal"  ><i class="fa fa-heartbeat"></i><span>Yeni Sessiya</span></a></li>
-                                    <li><a href="#"><i class="fa fa-medkit" aria-hidden="true" onclick="aa()"></i><span>Sessiyanı bitir</span></a></li>
+                                    <li ><a href="#" data-toggle="modal" data-target="#newSessiaModal" ><i class="fa fa-heartbeat"></i><span>Yeni Sessiya</span></a></li>
+                                    <li><a href="#"><i class="fa fa-medkit" aria-hidden="true" ></i><span>Sessiyanı bitir</span></a></li>
                                     <li><a href="#"><i class="fa fa-user-md" aria-hidden="true"></i><span>Müayinə siyahisi</span></a></li>
                                     <li><a href="#"><i class="fa fa-stethoscope" aria-hidden="true"></i><span>Sessiya siyahisi</span></a></li>
                                     <li><a href="#"><i class="fa fa-print" aria-hidden="true"></i><span>Hesabat/Print</span></a></li>
@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn-custom form-control"  data-toggle="modal" data-target="#pasientAddModal"><b>Pasient elave et <i class="fa fa-plus"> </i></b></button>
+                                    <button class="btn-custom form-control"  data-toggle="modal" data-target="#pasientAddModal" onclick="AddNewPasientArea()"><b>Pasient elave et <i class="fa fa-plus"> </i></b></button>
                                 </div>
                             </div>
                         </div>
@@ -167,6 +167,7 @@
         </div>
     </section><!-- End Hero -->
 
+   </div>
 
     <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
@@ -180,8 +181,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body patinetAddModalBody">
-                    <div class="row">
+                <div class="modal-body patinetAddModalBody" id="patinetAddModalBody">
+                    <!-- <div class="row">
                         <div class="form-group col-md-4"> 
                             <label qlang="">Patient ID</label> 
                             <input class="form-control  apd-form-input" type="text" id="patientId" name="patientName" placeholder=" "> 
@@ -277,11 +278,11 @@
                             <input class="form-control apd-form-input" type="text" id="" name="" placeholder=" "> 
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary apd-form-btn" data-dismiss="modal" id="insertNewPatientBtn" onclick="patientList()">Əlavə Et</button>
-                    <button type="button" class="btn btn-light">Bağla</button>
+                <button type="button" class="btn btn-secondary apd-form-btn"  id="insertNewPatientBtn" onclick="patientList()">Əlavə Et</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Bağla</button>
                 </div>
             </div>
         </div>
@@ -771,22 +772,22 @@
 
     <script type="text/javascript">
 
-            //             $('a').click(function (event) {
-    //     link=$(this).attr('href');
-    //     $.ajax({
-    //         url: link,
-    //     })
-    //     .done(function (html) {
-    //         $('#page').empty().append(html);
-    //     })
-    //     .fail(function () {
-    //         console.log('error');
-    //     })
-    //     .always(function(){
-    //         console.log('complate');
-    //     })
-    //     return false;
-    // });
+      $('.dropMenu a').click(function (event) {
+        link=$(this).attr('href');
+        $.ajax({
+            url: link,
+        })
+        .done(function (html) {
+            $('.page').empty().append(html);
+        })
+        .fail(function () {
+            console.log('error');
+        })
+        .always(function(){
+            console.log('complate');
+        })
+        return false;
+    });
     </script>
 </body>
 

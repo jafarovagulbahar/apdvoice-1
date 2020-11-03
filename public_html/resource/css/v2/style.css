@@ -510,8 +510,6 @@ width: 30%;
 
 }
 
-
-
 .dropdown-select:after {
   height: 0;
   width: 0;
@@ -1011,8 +1009,14 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
 }
 .mandatoryIcon{
   color: red;
+  /* box-shadow: 0px 0px 2px 1px red; */
   display: none;
 }
 .timesLabel{
   display: flex;
+}
+
+/* ----------------------------------------PASİENT TABLE PAGE------------------------------------ */
+.pasientTableSection{
+  padding-top: 180px;
 }

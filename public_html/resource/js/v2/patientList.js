@@ -1,87 +1,4 @@
 
-//  function PatientAddTable(){
-
-//  var patientadd=$('#patinetAddModalBody');
-//  var p=$('<div>').addClass('row')
- 
-//      .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Patient ID'))
-//      .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','patientName')))
-      
-//      .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Param 1'))
-//      .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','')))
-
-//      .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Param 2'))
-//      .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','')))
-
-//      .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Doğum Tarixi'))
-//      .append($('<input>').addClass('form-control  apd-form-input').attr('type','date').attr('id','example-date-input')))
-
-
-//     .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Ailə Vəziyyəti'))
-//     .append($('<select>').addClass('noSearch selectStyle')
-//     .append($('<option>').addClass('active').append(''))
-//     .append($('<option>').append('Subay'))
-//     .append($('<option>').append('Evli'))
-//     .append($('<option>').append('Dul'))
-//     .append($('<option>').append('---')) ) )
-
-
-//     .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('İxtisas'))
-//     .append($('<select>').addClass('noSearch selectStyle')
-//     .append($('<option>').addClass('active').append(''))
-//     .append($('<option>').append('Müəllim'))
-//     .append($('<option>').append('Həkim'))
-//     .append($('<option>').append('Aktyor (Aktrisa)'))
-//     .append($('<option>').append('Diktor')) 
-//     .append($('<option>').append('Çağırı mərkəzi'))
-//     .append($('<option>').append('Digər'))  ) )
-
-//     .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Occupation (Other)'))
-//     .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','').attr('disabled')))
-
-
-//     .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Təhsil'))
-//     .append($('<select>').addClass('noSearch selectStyle')
-//     .append($('<option>').addClass('active').append(''))
-//     .append($('<option>').append('Akademik'))
-//     .append($('<option>').append('Orta'))
-//     .append($('<option>').append('Natamam Ali'))
-//     .append($('<option>').append('Ali'))   ) )
- 
-//     .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Cinsiyyət'))
-//     .append($('<select>').addClass('noSearch selectStyle')
-//     .append($('<option>').addClass('active').append(''))
-//     .append($('<option>').append('Qadın'))
-//     .append($('<option>').append('Kişi'))
-//     .append($('<option>').append('Digər'))  ) )
-
-//     .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Qan qrupu'))
-//     .append($('<select>').addClass('noSearch selectStyle')
-//     .append($('<option>').addClass('active').append(''))
-//     .append($('<option>').append('O ( Ⅰ )'))
-//     .append($('<option>').append('A ( Ⅱ )'))
-//     .append($('<option>').append('B ( Ⅲ )')) 
-//     .append($('<option>').append('AB (Ⅳ )')) ) )
-  
-//     .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('RH faktor'))
-//     .append($('<select>').addClass('noSearch selectStyle')
-//     .append($('<option>').addClass('active').append(''))
-//     .append($('<option>').append('-'))
-//     .append($('<option>').append('+')) ) )
-
-//     .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Şəhər'))
-//     .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','')))
-
-
-//     patientadd.append(p); 
-//  }
-
-
-
-
-
-
-   
 //    function patinetList(){
   
 //    $('.dataTables_empty').css('display','none')
@@ -134,8 +51,7 @@
 // dataTable
 
 function dataTable(){
-    $('#example').DataTable({          
-    
+    $('#example').DataTable({             
         "dom": 'Bfrltip',
         responsive: true,
         "paging": true,
@@ -243,6 +159,19 @@ function patientList(e) {
        
         }
         json.kv.patientName = $("#patientId").val();
+        json.kv.patientSurname = $("#param1").val();
+        json.kv.patientMiddleName = $("#param2").val();
+        
+        json.kv.city = $("#city").val();
+        json.kv.occupationOther = $("#occupationOther").val();
+        json.kv.maritualStatus = $("#maritalStatus").val();
+        json.kv.education = $("#edu").val();
+        json.kv.bloodGroup = $("#bloodGroup").val();
+        json.kv.patientBirthDate = $("#birthDate").val();
+        json.kv.occupation = $("#occupation").val();
+        json.kv.sex = $("#gender").val();
+        json.kv.rhFactor = $("#rhFactor").val();
+    
         var data = JSON.stringify(json);
         $.ajax({
             url: urlGl+"api/post/srv/serviceCrInsertNewPatient",
@@ -263,7 +192,6 @@ function patientList(e) {
 function pasientListCombo(res){
     var patientList = $('#patinetlistcombo').html('');
  
-
     var obj = res.tbl[0].r;
     for (var i = 0; i < obj.length; i++) {
         var p = $('<li>').addClass('patient_li').append($('<input>').attr('type','hidden').attr( 'value', obj[i].patientName))
@@ -283,6 +211,20 @@ function getpatientList(e) {
    
     }
     json.kv.patientName = $("#patientId").val();
+    json.kv.patientSurname = $("#param1").val();
+    json.kv.patientMiddleName = $("#param2").val();
+    
+    json.kv.city = $("#city").val();
+    json.kv.occupationOther = $("#occupationOther").val();
+    json.kv.maritualStatus = $("#maritalStatus").val();
+    json.kv.education = $("#edu").val();
+    json.kv.bloodGroup = $("#bloodGroup").val();
+    json.kv.patientBirthDate = $("#birthDate").val();
+    json.kv.occupation = $("#occupation").val();
+    json.kv.sex = $("#gender").val();
+    json.kv.rhFactor = $("#rhFactor").val();
+
+   // PasientNote
     var data = JSON.stringify(json);
     $.ajax({
         url: urlGl+"api/post/srv/serviceCrGetPatientList",
@@ -293,6 +235,7 @@ function getpatientList(e) {
         async: false,
         success: function (res) {
              pasientListCombo(res)
+             $("#patientId").val('');
         },
         error: function (res, status) {
         }
@@ -309,6 +252,7 @@ function pasientFilter() {
    
     }
     json.kv.patientName = $("#patientId").val();
+
     var data = JSON.stringify(json);
     $.ajax({
         url: urlGl+"api/post/srv/serviceCrGetPatientList4Combo",
@@ -472,15 +416,15 @@ function addNewSessiaArea(){
          ))
 
          .append($('<div>').addClass('form-group apd-form col-md-4')
-         .append($('<label>').addClass('timesLabel').append('Tarix').append($('<span>').addClass('mandatoryIcon').append('*')))
+         .append($('<label>').addClass('timesLabel Star1').append('Tarix').append($('<span>').addClass('mandatoryIcon').append('*')))
          .append($('<input>').addClass('form-control apd-form-input').attr('type','date').attr('id','dateSessia').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
-         .append($('<label>').addClass('timesLabel').append('Saat (dan)').append($('<span>').addClass('mandatoryIcon').append('*')))
+         .append($('<label>').addClass('timesLabel  Star2').append('Saat (dan)').append($('<span>').addClass('mandatoryIcon').append('*')))
          .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time1').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
-         .append($('<label>').addClass('timesLabel').append('Saat (a)').append($('<span>').addClass('mandatoryIcon').append('*')))
+         .append($('<label>').addClass('timesLabel Star3').append('Saat (a)').append($('<span>').addClass('mandatoryIcon ').append('*')))
          .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time2').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
@@ -596,6 +540,7 @@ function InsertNewSessia() {
 
             if(isNow==false && (date=='' || Time1=='' || Time2=='' )){
                $('.mandatoryIcon').css('display','block')
+             
             }else{
                 $('.mandatoryIcon').css('display','none')
             }
@@ -630,4 +575,101 @@ function toggleSessionDate(el) {
 
 
 // end NEW SESSIA-------------------------------------------
+
+// serviceCrInsertNewPatient
+// {"kv":{"patientName":"gulbahar","occupation":"1","education":"4","rhFactor":"1","city":"","sex":"1","patientMiddleName":"","patientBirthDate":"20201112","undefined":"1","bloodGroup":"1","occupationOther":"","maritualStatus":"2","patientSurname":""},"tbl":[],"err":[]}
+
+// serviceCrGetAppointmentList
+
+// serviceCrGetAppointmentList	
+// serviceCrGetMessageText 
+// serviceCrGetLastPatientInfo
+// {"kv":{"patientName":"gulbahar   (20201112)","pid":"202011031157500197"},"tbl":[],"err":[]}
+
+// start All pasientList add-------------------------------
+
+
+function AddNewPasientArea(){
+
+    var patientadd=$('#patinetAddModalBody').html('');;
+    var p=$('<div>').addClass('row')
+    
+        .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Patient ID'))
+        .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','patientId')))
+         
+        .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Param 1'))
+        .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','param1')))
+   
+        .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Param 2'))
+        .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','param2')))
+   
+        .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Doğum Tarixi'))
+        .append($('<input>').addClass('form-control  apd-form-input').attr('type','date').attr('id','birthDate')))
+   
+   
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Ailə Vəziyyəti'))
+       .append($('<select>').addClass('noSearch selectStyle').attr('id','maritalStatus')
+       .append($('<option>').attr('value', 0).addClass('active').append(''))
+       .append($('<option>').attr('value', 1).append('Evli'))
+       .append($('<option>').attr('value', 2).append('Subay'))
+       .append($('<option>').attr('value', 3).append('Dul'))
+       .append($('<option>').attr('value', 4).append('---')) ) )
+   
+   
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('İxtisas'))
+       .append($('<select>').addClass('noSearch selectStyle').attr('id','occupation')
+       .append($('<option>').attr('value', 0).addClass('active').append(''))
+       .append($('<option>').attr('value', 1).append('Müəllim'))
+       .append($('<option>').attr('value', 2).append('Həkim'))
+       .append($('<option>').attr('value', 3).append('Aktyor (Aktrisa)'))
+       .append($('<option>').attr('value', 4).append('Diktor')) 
+       .append($('<option>').attr('value', 5).append('Çağırı mərkəzi'))
+       .append($('<option>').attr('value', 6).append('Digər'))  ) )
+   
+       .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Occupation (Other)'))
+       .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','occupationOther')))
+   
+   
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Təhsil'))
+       .append($('<select>').addClass('noSearch selectStyle').attr('id','edu')
+       .append($('<option>').attr('value', 0).addClass('active').append(''))
+       .append($('<option>').attr('value', 1).append('Akademik'))
+       .append($('<option>').attr('value', 2).append('Orta'))
+       .append($('<option>').attr('value', 3).append('Natamam Ali'))
+       .append($('<option>').attr('value', 4).append('Ali'))   ) )
+    
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Cinsiyyət'))
+       .append($('<select>').addClass('noSearch selectStyle').attr('id','gender')
+       .append($('<option>').attr('value', 0).addClass('active').append(''))
+       .append($('<option>').attr('value', 1).append('Qadın'))
+       .append($('<option>').attr('value', 2).append('Kişi'))
+       .append($('<option>').attr('value', 3).append('Digər'))  ) )
+   
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Qan qrupu'))
+       .append($('<select>').addClass('noSearch selectStyle').attr('id','bloodGroup')
+       .append($('<option>').attr('value', 0).addClass('active').append(''))
+       .append($('<option>').attr('value', 1).append('O ( Ⅰ )'))
+       .append($('<option>').attr('value', 2).append('A ( Ⅱ )'))
+       .append($('<option>').attr('value', 3).append('B ( Ⅲ )')) 
+       .append($('<option>').attr('value', 4).append('AB (Ⅳ )')) ) )
+     
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('RH faktor'))
+       .append($('<select>').addClass('noSearch selectStyle').attr('id','rhFactor')
+       .append($('<option>').attr('value', 0).addClass('active').append(''))
+       .append($('<option>').attr('value', 1).append('-'))
+       .append($('<option>').attr('value', 2).append('+')) ) )
+   
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Şəhər'))
+       .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','city')))
+   
+       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('İzahat'))
+       .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','PasientNote')))
+   
+   
+       patientadd.append(p); 
+    }
+
+
+// end All pasientList add---------------------------------
+
 
