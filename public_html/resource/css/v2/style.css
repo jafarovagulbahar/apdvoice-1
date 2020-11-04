@@ -1009,10 +1009,21 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
 }
 .mandatoryIcon{
   color: red;
-  /* box-shadow: 0px 0px 2px 1px red; */
   display: none;
 }
+.patientMandatory{
+  border:none;
+}
+.patientMandatoryDate,
+ .patientMandatoryTime1,
+  .patientMandatoryTime2{
+    border:none;
+}
+
 .timesLabel{
+  display: flex;
+}
+.pasientLabel{
   display: flex;
 }
 

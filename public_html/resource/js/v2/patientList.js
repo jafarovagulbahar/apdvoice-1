@@ -1,57 +1,12 @@
+// LOAD
 
-//    function patinetList(){
-  
-//    $('.dataTables_empty').css('display','none')
-     
-//     var patient= $('#paseinetListTbody'); 
 
-//     var patientId=$('#patientId').val();
-//     var gander=$('select#gander option:checked').val();
-//     var prof=$('select#prof option:checked').val();
-//     var family=$('select#family option:checked').val();
-//     var edu=$('select#edu option:checked').val();
-//     var bloodGroup=$('select#bloodGroup option:checked').val();
-//     var rhFactor=$('select#rhFactor option:checked').val();
-//     var city=$('select#city option:checked').val();
-
-            // append($('<thead>').append($('<tr>')
-            // 	.append($('<th>').append('№'))
-            // 	.append($('<th>').append('Patient ID'))
-            // 	.append($('<th>').append('Cinsiyyet'))
-            // 	.append($('<th>').append('İxtisas'))
-            // 	.append($('<th>').append('Occupation (Other)'))
-            // 	.append($('<th>').append('Ailə vəziyyəti'))
-            // 	.append($('<th>').append('Təhsil'))
-            // 	.append($('<th>').append('Qan qrupu'))
-            // 	.append($('<th>').append('Rh Faktor'))
-            // 	.append($('<th>').append('Ölkə'))
-            // 	.append($('<th>').append('Cinsiyyət'))
-            // 	.append($('<th>').append('Şəhər'))
-            // 	.append($('<th>').append('İzahat')) ))
-
-//             var p=$('<tr>')
-//                 .append($('<td>').append('1'))
-//                 .append($('<td>').append(patientId))
-//                 .append($('<td>').append(gander))
-//                 .append($('<td>').append(prof))
-//                 .append($('<td>').append('a'))
-//                 .append($('<td>').append(family))
-//                 .append($('<td>').append(edu))
-//                 .append($('<td>').append(bloodGroup))
-//                 .append($('<td>').append(rhFactor))
-//                 .append($('<td>').append(city))
-//                 .append($('<td>').append('11')) 
-               
-          
-//                 patient.append(p); 
-
-//    }
 //    -----------------------------------------------------------------------------------------------------------------------------
 
 // dataTable
 
 function dataTable(){
-    $('#example').DataTable({             
+    $('#example',).DataTable({             
         "dom": 'Bfrltip',
         responsive: true,
         "paging": true,
@@ -145,12 +100,33 @@ $(document).on("click",'#patinetlistcombo li a', function (e) {
   $(document).on("click",'.patient_li', function (e) {
     $(this).addClass('active-patient');
   })
+// "pasient add modal" Mandatory input
+  $(document).on("keyup",'.patientMandatory', function (e) {
+    $(this).css('border','none');
+    $('.mandatoryIcon').css('display','none')
+  })
+
+  $(document).on("click",'.patientMandatoryDate', function (e) {
+    $('.patientMandatoryDate').css('border','none')
+    $('.mandatoryIcon').css('display','none')
+  })
+  $(document).on("keyup",'.patientMandatoryTime1', function (e) {
+    $('.patientMandatoryTime1').css('border','none')
+    $('.mandatoryIcon').css('display','none')
+  })
+  $(document).on("keyup",'.patientMandatoryTime2', function (e) {
+    $('.patientMandatoryTime2').css('border','none')
+    $('.mandatoryIcon').css('display','none')
+  })
+
 
 
 //  AJAX CODING
 
 // start ADD NEW PASIENT-------------------------------------------------
 function patientList(e) {
+       var patientİd=$("#patientId").val();
+
         var json = { kv: {} };
         console.log(json)
         try {
@@ -163,6 +139,8 @@ function patientList(e) {
         json.kv.patientMiddleName = $("#param2").val();
         
         json.kv.city = $("#city").val();
+        json.kv.description = $("#PasientNote").val();
+
         json.kv.occupationOther = $("#occupationOther").val();
         json.kv.maritualStatus = $("#maritalStatus").val();
         json.kv.education = $("#edu").val();
@@ -181,7 +159,15 @@ function patientList(e) {
             crossDomain: true,
             async: false,
             success: function (res) {
-                //  console.log("ugurlu emeliyyat get", JSON.stringify(res));
+                if(patientİd==''){
+                    $('.mandatoryIcon').css('display','block')
+                    $('.patientMandatory').css('border','2px solid red')
+                  
+                 }else{
+                     $('.mandatoryIcon').css('display','none')
+                     $('.patientMandatory').css('border','none')
+                  
+                 }
                  getpatientList()
             },
             error: function (res, status) {
@@ -210,11 +196,13 @@ function getpatientList(e) {
     } catch (err) {
    
     }
+
     json.kv.patientName = $("#patientId").val();
     json.kv.patientSurname = $("#param1").val();
     json.kv.patientMiddleName = $("#param2").val();
     
     json.kv.city = $("#city").val();
+    json.kv.description = $("#PasientNote").val();
     json.kv.occupationOther = $("#occupationOther").val();
     json.kv.maritualStatus = $("#maritalStatus").val();
     json.kv.education = $("#edu").val();
@@ -417,15 +405,15 @@ function addNewSessiaArea(){
 
          .append($('<div>').addClass('form-group apd-form col-md-4')
          .append($('<label>').addClass('timesLabel Star1').append('Tarix').append($('<span>').addClass('mandatoryIcon').append('*')))
-         .append($('<input>').addClass('form-control apd-form-input').attr('type','date').attr('id','dateSessia').prop('disabled',true)) )
+         .append($('<input>').addClass('form-control apd-form-input patientMandatoryDate').attr('type','date').attr('id','dateSessia').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
          .append($('<label>').addClass('timesLabel  Star2').append('Saat (dan)').append($('<span>').addClass('mandatoryIcon').append('*')))
-         .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time1').prop('disabled',true)) )
+         .append($('<input>').addClass('form-control apd-form-input patientMandatoryTime1').attr('type','time').attr('id','time1').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
          .append($('<label>').addClass('timesLabel Star3').append('Saat (a)').append($('<span>').addClass('mandatoryIcon ').append('*')))
-         .append($('<input>').addClass('form-control apd-form-input').attr('type','time').attr('id','time2').prop('disabled',true)) )
+         .append($('<input>').addClass('form-control apd-form-input patientMandatoryTime2').attr('type','time').attr('id','time2').prop('disabled',true)) )
 
          .append($('<div>').addClass('form-group apd-form col-md-2')
          .append($('<label>').addClass('isNowLabel').append($('<input>').attr('type','checkbox').addClass('toDoLi').attr('id','currentTime').prop('checked',true).attr('onclick','toggleSessionDate(this)'))
@@ -443,13 +431,13 @@ function addNewSessiaArea(){
 
     var List = $('#purposeSessia');
     for (var i = 0; i < purposes.length; i++) {
-        var p = $('<option>').append(purposes[i].paymentName); 
+        var p = $('<option>').attr('value', i).append(purposes[i].paymentName); 
         List.append(p); 
     }
 
     var doc = $('#doctor');
     for (var i = 0; i < doctor.length; i++) {
-        var d = $('<option>').append(doctor[i].userPersonName,  doctor[i].userPersonSurname, doctor[i].userPersonMiddlename); 
+        var d = $('<option>').attr('value', i).append(doctor[i].userPersonName,  doctor[i].userPersonSurname, doctor[i].userPersonMiddlename); 
         doc.append(d); 
     }
    
@@ -464,9 +452,9 @@ function GetNewSessiaDoctor() {
     } catch (err) {   
     }
 
-    json.kv.userPersonName =  $( "#doctor option:selected" ).val();
-    json.kv.userPersonSurname =  $( "#doctor option:selected" ).val();
-    json.kv.userPersonMiddlename =  $( "#doctor option:selected" ).val();
+    json.kv.userPersonName =  $( "#doctor" ).val();
+    json.kv.userPersonSurname =  $( "#doctor" ).val();
+    json.kv.userPersonMiddlename =  $( "#doctor" ).val();
 
     var data = JSON.stringify(json);
     var resData=$.ajax({
@@ -489,7 +477,7 @@ function GetNewSessiaPurpose() {
     } catch (err) {   
     }
 
-    json.kv.paymentName = $('#purposeSessia option:selected').val();
+    json.kv.paymentName = $('#purposeSessia').val();
 
     var data = JSON.stringify(json);
     var resData=$.ajax({
@@ -540,9 +528,15 @@ function InsertNewSessia() {
 
             if(isNow==false && (date=='' || Time1=='' || Time2=='' )){
                $('.mandatoryIcon').css('display','block')
+               $('.patientMandatoryDate').css('border','2px solid red')
+               $('.patientMandatoryTime1').css('border','2px solid red')
+               $('.patientMandatoryTime2').css('border','2px solid red')
              
             }else{
-                $('.mandatoryIcon').css('display','none')
+                $('.patientMandatoryDate').css('border','none')
+                $('.patientMandatoryTime1').css('border','none')
+                $('.patientMandatoryTime2').css('border','none')
+                $('.patientMandatory').css('none')
             }
         },
         error: function (res, status) {
@@ -576,16 +570,6 @@ function toggleSessionDate(el) {
 
 // end NEW SESSIA-------------------------------------------
 
-// serviceCrInsertNewPatient
-// {"kv":{"patientName":"gulbahar","occupation":"1","education":"4","rhFactor":"1","city":"","sex":"1","patientMiddleName":"","patientBirthDate":"20201112","undefined":"1","bloodGroup":"1","occupationOther":"","maritualStatus":"2","patientSurname":""},"tbl":[],"err":[]}
-
-// serviceCrGetAppointmentList
-
-// serviceCrGetAppointmentList	
-// serviceCrGetMessageText 
-// serviceCrGetLastPatientInfo
-// {"kv":{"patientName":"gulbahar   (20201112)","pid":"202011031157500197"},"tbl":[],"err":[]}
-
 // start All pasientList add-------------------------------
 
 
@@ -594,8 +578,8 @@ function AddNewPasientArea(){
     var patientadd=$('#patinetAddModalBody').html('');;
     var p=$('<div>').addClass('row')
     
-        .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Patient ID'))
-        .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','patientId')))
+        .append($('<div>').addClass('form-group col-md-4').append($('<label>').addClass('pasientLabel').append('Patient ID').append($('<span>').addClass('mandatoryIcon').append('*')))
+        .append($('<input>').addClass('form-control  apd-form-input patientMandatory').attr('type','text').attr('id','patientId')))
          
         .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Param 1'))
         .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','param1')))
@@ -609,22 +593,22 @@ function AddNewPasientArea(){
    
        .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Ailə Vəziyyəti'))
        .append($('<select>').addClass('noSearch selectStyle').attr('id','maritalStatus')
-       .append($('<option>').attr('value', 0).addClass('active').append(''))
-       .append($('<option>').attr('value', 1).append('Evli'))
-       .append($('<option>').attr('value', 2).append('Subay'))
-       .append($('<option>').attr('value', 3).append('Dul'))
-       .append($('<option>').attr('value', 4).append('---')) ) )
+       .append($('<option>').addClass('active').append(''))
+       .append($('<option>').append('Evli'))
+       .append($('<option>').append('Subay'))
+       .append($('<option>').append('Dul'))
+       .append($('<option>').append('---')) ) )
    
    
        .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('İxtisas'))
        .append($('<select>').addClass('noSearch selectStyle').attr('id','occupation')
-       .append($('<option>').attr('value', 0).addClass('active').append(''))
-       .append($('<option>').attr('value', 1).append('Müəllim'))
-       .append($('<option>').attr('value', 2).append('Həkim'))
-       .append($('<option>').attr('value', 3).append('Aktyor (Aktrisa)'))
-       .append($('<option>').attr('value', 4).append('Diktor')) 
-       .append($('<option>').attr('value', 5).append('Çağırı mərkəzi'))
-       .append($('<option>').attr('value', 6).append('Digər'))  ) )
+       .append($('<option>').addClass('active').append(''))
+       .append($('<option>').append('Müəllim'))
+       .append($('<option>').append('Həkim'))
+       .append($('<option>').append('Aktyor (Aktrisa)'))
+       .append($('<option>').append('Diktor')) 
+       .append($('<option>').append('Çağırı mərkəzi'))
+       .append($('<option>').append('Digər'))  ) )
    
        .append($('<div>').addClass('form-group col-md-4').append($('<label>').append('Occupation (Other)'))
        .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','occupationOther')))
@@ -632,44 +616,160 @@ function AddNewPasientArea(){
    
        .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Təhsil'))
        .append($('<select>').addClass('noSearch selectStyle').attr('id','edu')
-       .append($('<option>').attr('value', 0).addClass('active').append(''))
-       .append($('<option>').attr('value', 1).append('Akademik'))
-       .append($('<option>').attr('value', 2).append('Orta'))
-       .append($('<option>').attr('value', 3).append('Natamam Ali'))
-       .append($('<option>').attr('value', 4).append('Ali'))   ) )
+       .append($('<option>').addClass('active').append(''))
+       .append($('<option>').append('Akademik'))
+       .append($('<option>').append('Orta'))
+       .append($('<option>').append('Natamam Ali'))
+       .append($('<option>').append('Ali'))   ) )
     
        .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Cinsiyyət'))
        .append($('<select>').addClass('noSearch selectStyle').attr('id','gender')
-       .append($('<option>').attr('value', 0).addClass('active').append(''))
-       .append($('<option>').attr('value', 1).append('Qadın'))
-       .append($('<option>').attr('value', 2).append('Kişi'))
-       .append($('<option>').attr('value', 3).append('Digər'))  ) )
-   
+       .append($('<option>').addClass('active').append(''))
+       .append($('<option>').append('Qadın'))
+       .append($('<option>').append('Kişi'))
+       .append($('<option>').append('Digər'))))
+
        .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Qan qrupu'))
        .append($('<select>').addClass('noSearch selectStyle').attr('id','bloodGroup')
-       .append($('<option>').attr('value', 0).addClass('active').append(''))
-       .append($('<option>').attr('value', 1).append('O ( Ⅰ )'))
-       .append($('<option>').attr('value', 2).append('A ( Ⅱ )'))
-       .append($('<option>').attr('value', 3).append('B ( Ⅲ )')) 
-       .append($('<option>').attr('value', 4).append('AB (Ⅳ )')) ) )
+       .append($('<option>').addClass('active').append(''))
+       .append($('<option>').append('O ( Ⅰ )'))
+       .append($('<option>').append('A ( Ⅱ )'))
+       .append($('<option>').append('B ( Ⅲ )')) 
+       .append($('<option>').append('AB (Ⅳ )')) ) )
      
        .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('RH faktor'))
        .append($('<select>').addClass('noSearch selectStyle').attr('id','rhFactor')
-       .append($('<option>').attr('value', 0).addClass('active').append(''))
-       .append($('<option>').attr('value', 1).append('-'))
-       .append($('<option>').attr('value', 2).append('+')) ) )
+       .append($('<option>').addClass('active').append(''))
+       .append($('<option>').append('-'))
+       .append($('<option>').append('+')) ) )
    
        .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('Şəhər'))
        .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','city')))
    
-       .append($('<div>').addClass('form-group col-md-4 patientSelectBox').append($('<label>').append('İzahat'))
+       .append($('<div>').addClass('form-group col-md-12 patientSelectBox').append($('<label>').append('İzahat'))
        .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('id','PasientNote')))
    
    
        patientadd.append(p); 
-    }
+}
 
 
 // end All pasientList add---------------------------------
 
+
+// start Pasient DataTable----------------------------------------
+function dataTable2(){
+    $('#example2',).DataTable({             
+        "dom": 'Bfrltip',
+        responsive: true,
+        "paging": true,
+        "autoWidth": true,
+        "buttons": [
+            {
+                extend: 'colvis',
+                text: function (dt, button, config) {
+                    return dt.i18n('buttons.colvis', 'Column');
+                }
+            }
+            ,
+            'copyHtml5',
+            'excelHtml5',
+            'pdfHtml5',
+            'print',
+        ],
+
+        initComplete: function () {
+            $('.buttons-copy').html('<i class="fa fa-copy" />')
+
+            $('.buttons-excel').html('<i class="fa fa-file-excel-o" />')
+            $('.buttons-pdf').html('<i class="fa fa-file-pdf-o" />')
+            $('.buttons-print').html('<i class="fa fa-print" />')
+
+        },
+        "language": {
+            "lengthMenu": " _MENU_ ",
+            "search": "",
+
+            paginate: {
+                next: '<i class="fa fa-angle-double-right">',
+                previous: '<i class="fa fa-angle-double-left">'
+            }
+        },
+     
+
+    });
+    
+}
+function GetAppointmentListPasient(e) {
+    
+    var json = { kv: {} };
+   
+    try {
+        json.kv.cookie = getToken();
+    } catch (err) {
+   
+    }
+
+    var data = JSON.stringify(json);
+    $.ajax({
+        url: urlGl+"api/post/srv/serviceCrGetPatientList",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (res) {
+            PasientDataTable(res);
+           dataTable2()
+        },
+        error: function (res, status) {
+        //  lert(getMessage('somethingww'));
+        }
+    });      
+}
+function PasientDataTable(res){
+    var PasientThead=$('#PasinetTableThead')
+    var pT=$('<tr>')
+            .append($('<th>').append('№'))
+            .append($('<th>').append('Patient ID'))
+            .append($('<th>').append('Cinsiyyet'))
+            .append($('<th>').append('İxtisas'))
+            .append($('<th>').append('Occupation (Other)'))
+            .append($('<th>').append('Ailə vəziyyəti'))
+            .append($('<th>').append('Təhsil'))
+            .append($('<th>').append('Qan qrupu'))
+            .append($('<th>').append('Rh Faktor'))
+            .append($('<th>').append('Ölkə'))
+            .append($('<th>').append('Şəhər'))
+            .append($('<th>').append('İzahat')) 
+
+            PasientThead.append(pT); 
+
+   var table=$('#PasinetTableBody');
+   var obj = res.tbl[0].r;
+   for (var i = 0; i < obj.length; i++) {
+       var o=obj[i];
+       var t=($('<tr>')
+           .append($('<td>').addClass('apd-table-td').append(i+1))
+           .append($('<td>').addClass('_0p').append(obj[i].patientName))
+           .append($('<td>').addClass('_1p').append(obj[i].sex))
+           .append($('<td>').addClass('_2p').append(obj[i].occupation))
+
+           .append($('<td>').addClass('_3p').append(obj[i].occupationOther))
+           .append($('<td>').addClass('_4p').append(o.maritualStatus))
+           .append($('<td>').addClass('_5p').append(o.education))
+           .append($('<td>').addClass('_6p').append(o.bloodGroup))
+           .append($('<td>').addClass('_7p').append(o.rhFactor))
+           .append($('<td>').addClass('_8p').append(''))
+           .append($('<td>').addClass('_9p').append(o.city))
+           .append($('<td>').addClass('_10p').append(o.description))
+    
+    
+           )
+         
+         table.append(t); 
+
+    }
+ }
+// start Pasient DataTable----------------------------------------
 
