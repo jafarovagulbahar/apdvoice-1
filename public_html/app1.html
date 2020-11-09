@@ -68,8 +68,8 @@
                         </ul>
                     </li>
                     <!-- language selector -->
-                    <li class="drop-down"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"> <img id="imgNavLangActive" src="resource/img/flag/AZE.png" class="flag-item">&nbsp; <span class="caret"></span></a> 
-                        <ul class="dropdown-menu" role="menu"> 
+                    <li class="drop-down"> <a href="#" class="" data-toggle="dropdown" role="button" aria-expanded="true"> <img id="imgNavLangActive" src="resource/img/flag/AZE.png" class="flag-item">&nbsp; <span class="caret"></span></a> 
+                        <ul class="" role="menu"> 
                             <li><a id="navIta" href="#" lang_type="ENG" class="language"> <img id="imgNavLangEng" src="resource/img/flag/ENG.png" class="flag-item">&nbsp;&nbsp;<span id="navLangEng">English</span></a></li> 
                             <li><a id="navDeu" href="#" lang_type="AZE" class="language"> <img id="imgNavLangAze" src="resource/img/flag/AZE.png" class="flag-item">&nbsp;&nbsp;<span id="navLangAze">Azərbaycan</span></a></li> 
                             <li><a id="navFra" href="#" lang_type="TUR" class="language"> <img id="imgNavLangTur" src="resource/img/flag/TUR.png" class="flag-item">&nbsp;&nbsp;<span id="navLangTur">Türkçe</span></a></li> 
@@ -79,8 +79,8 @@
                     </li>
                     <!-- my account  -->
 
-                    <li component_id1="menu_user_profile" class="drop-down" > <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><img src="resource/img/user.png" class="profile-image img-circle"/> <b class="caret"></b></a> 
-                        <ul class="dropdown-menu"> 
+                    <li component_id1="menu_user_profile" class="drop-down" > <a href="#" class="" data-toggle="dropdown" aria-expanded="true"><img src="resource/img/user.png" class="profile-image img-circle"/> <b class="caret"></b></a> 
+                        <ul class=""> 
                             <span class="center" qusername="" style="margin-left: 5px">Doctor Name</span> 
                             <li class="divider"></li> 
                             <li class="megamenu_" page_id="page_updateprofile"> <a href="#"><i class="fa fa-cog"></i> <span qlang="">Account</span></a> </li> 
@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn-custom form-control"  data-toggle="modal" data-target="#pasientAddModal" onclick="AddNewPasientArea()"><b>Pasient elave et <i class="fa fa-plus"> </i></b></button>
+                                    <button class="btn-custom form-control add-patinet-btn"  data-toggle="modal" data-target="#pasientAddModal" onclick="AddNewPasientArea()"><b>Pasient əlavə et <i class="fa fa-plus"> </i></b></button>
                                 </div>
                             </div>
                         </div>
@@ -185,9 +185,8 @@
                 <div class="modal-body patinetAddModalBody" id="patinetAddModalBody">
                    <!-- ADD PATIENT  DYNAMIC -->
                 </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary apd-form-btn"  id="insertNewPatientBtn" onclick="patientList()">Əlavə Et</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Bağla</button>
+                <div class="modal-footer" id="patientAddFooter">
+                 
                 </div>
             </div>
         </div>
@@ -253,6 +252,27 @@
     </div>
   </div>
 
+
+  <!-- UPDATE Modal -->
+<!-- <div class="modal fade" id="pasientUpdate" tabindex="-1" role="dialog" aria-labelledby="pasientUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pasientUpdateLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="updatePatinetBody">
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="UpdatePatientFn()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog patinetAddModalBody">

@@ -810,6 +810,12 @@ MY account
   /* --------------------------------------------
   DATATable
   ------------------------------------------ */
+  .dataTables_wrapper .dataTables_paginate .fg-button{
+    color: #082744;
+  }
+  .dataTables_wrapper .dataTables_paginate .ellipsis{
+     color: #082744;
+  }
   #example{
     width: 0px !important;
 
@@ -920,6 +926,11 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
     border-radius: 50%;
     box-shadow:0px 1px 5px #aba8d4;
   }
+  .edit-icon{
+    padding: 2px 5px;
+      border-radius: 50%;
+      box-shadow:0px 1px 5px #aba8d4;
+    }
   .question-icon{
     padding: 2px 6px;
     border-radius: 50%;
@@ -930,6 +941,11 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
     border-radius: 50%;
     box-shadow:inset 0px 1px 5px #aba8d4;
   }
+  .edit-icon:focus{
+    padding: 2px 5px;
+      border-radius: 50%;
+      box-shadow:inset 0px 1px 5px #aba8d4;
+    }
   .question-icon:focus{
     padding: 2px 6px;
     border-radius: 50%;
@@ -1031,3 +1047,5 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
 .pasientTableSection{
   padding-top: 180px;
 }
+/* DataTable2 */
+
