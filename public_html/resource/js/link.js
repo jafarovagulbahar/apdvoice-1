@@ -12,6 +12,10 @@ function getToken() {
 //    return '';
 }
 
+function getTokenDiff(){
+   return  "apdtok=eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.wegrk160_0vGAHJIBVXaDxBjwZsgywhE7o0fKfgDMpXRRyEMy4RO5g.9lFTrpK1ptbCeWEw7UUJHg.c1h-tQwjnQOvJ957d9Z-uf7NBnTzu9GpaBbIr4xIKIZS249Dr-H7XWMOJXcKCoEDG-pB2zLKJGb01UdnRKr1g-IR3zVpsLWeDcwtFh4tGEa0KjQCkGijSstBXECtrFsyk9ioUDLdAjjEQ47vwy-k1Wb4ZtttMbMah8HnyaY795w.f4ZX9XPaTlVO2ovlu6pX4w"
+
+}
 var urlGl = "https://app.apdvoice.com/";
 //var urlGl = "http://localhost:8080/apd1/";
 //var urlGl = ""

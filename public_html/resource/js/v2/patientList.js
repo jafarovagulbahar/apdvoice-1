@@ -131,7 +131,7 @@ $(document).on("click",'.edit-btn', function () {
 
 //  AJAX CODING
 
-// start ADD NEW PASIENT-------------------------------------------------
+//1. start ADD NEW PASIENT-------------------------------------------------
 function patientList(e) {
        var patientİd=$("#patientId").val();
 
@@ -190,7 +190,7 @@ function pasientListCombo(res){
     var obj = res.tbl[0].r;
     for (var i = 0; i < obj.length; i++) {
         var p = $('<li>').addClass('patient_li').append($('<input>').attr('type','hidden').attr( 'value', obj[i].patientName))
-        .append($('<a>').attr('href','#').attr('data-value', obj[i].patientName ).append(obj[i].patientName).attr('id','patentID'+obj[i].id).attr('onclick','addNewSessiaArea(this,"'+obj[i].id+'")'));                        
+        .append($('<a>').attr('href','#').attr('data-value', obj[i].patientName ).append(obj[i].patientName).attr('id','patentID'+obj[i].id).attr('onclick','generalPatientFn("'+obj[i].id+'")'));                        
         patientList.append(p); 
  } 
 
@@ -282,7 +282,7 @@ function pasientFilter() {
 }
 // end ADD NEW PASIENT----------------------------------------------
 
-// start MAIN TABLE-------------------------------------------------
+//2. start MAIN TABLE-------------------------------------------------
 function GetAppointmentList(e) {
     
     var json = { kv: {} };
@@ -292,7 +292,7 @@ function GetAppointmentList(e) {
     } catch (err) {
    
     }
-
+  
     var data = JSON.stringify(json);
     $.ajax({
         url: urlGl+"api/post/srv/serviceCrGetAppointmentList",
@@ -342,9 +342,9 @@ function doctorDataTable(res){
            .append($('<i>').addClass('fa fa-question')) )
            .append($('<div>').addClass('dropdown-menu dropMenuQues').attr('aria-labelledby','apdQuestions'+obj[i].id)
    
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal1').append('Şikayət'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal2').append('Anamnez'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal3').append('An.Vitae'))
+           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('data-toggle','modal').attr('data-target','#myModalAA').append('Şikayət'))
+           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('data-toggle','modal').attr('data-target','#myModalAA').append('Anamnez'))
+           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('data-toggle','modal').attr('data-target','#myModalAA').append('An.Vitae'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal4').append('Səs gigiyenası'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal5').append('Akustik Analiz'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal6').append('Aerodinamik qiymətləndirmə (Spirometry test)'))
@@ -397,15 +397,16 @@ function doctorDataTable(res){
 // end MAIN TABLE-----------------------------------------------
 
 
-// start NEW SESSIA----------------------------------------------
+//3. start NEW SESSIA----------------------------------------------
 
 function addNewSessiaArea(){
 
+    console.log(GetNewSessiaDoctor());
     var doctor=GetNewSessiaDoctor().tbl[0].r;
     var purposes=GetNewSessiaPurpose().tbl[0].r;
 //    var testPasent=testPasient().tbl[0].r[0];
     
-    var table=$('#addNewSessia');
+    var table=$('#addNewSessia').html('');
  
         var t=($('<div>').addClass('row')
          .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
@@ -473,10 +474,6 @@ function GetNewSessiaDoctor() {
     } catch (err) {   
     }
 
-    json.kv.userPersonName =  $( "#doctor" ).val();
-    json.kv.userPersonSurname =  $( "#doctor" ).val();
-    json.kv.userPersonMiddlename =  $( "#doctor" ).val();
-
     var data = JSON.stringify(json);
     var resData=$.ajax({
         url: urlGl+"api/post/srv/serviceCrGetDoctorList",
@@ -497,8 +494,6 @@ function GetNewSessiaPurpose() {
         json.kv.cookie = getToken();
     } catch (err) {   
     }
-
-    json.kv.paymentName = $('#purposeSessia').val();
 
     var data = JSON.stringify(json);
     var resData=$.ajax({
@@ -593,12 +588,10 @@ function toggleSessionDate(el) {
     }
    
 }
-
-
-
 // end NEW SESSIA-------------------------------------------
 
-// start All pasientList add-------------------------------
+
+//4. start All pasientList add-------------------------------
 function updatePasientNew(_id){
 
     var json = { kv: {} };
@@ -852,7 +845,7 @@ function AddNewPasientArea(resData){
        var btn=$('<div>')
        .append($('<button>').addClass('btn btn-secondary apd-form-btn addBtn').attr('onclick','patientList("'+_id+'")').append('Əlavə et!'))
        .append($('<button>').addClass('btn btn-secondary apd-form-btn updateBtn').attr('onclick','updatePasientNew("'+_id+'")').append('Dəyiş'))
-       .append($('<button>').addClass('btn btn-light').append('Bağla'))
+       .append($('<button>').addClass('btn btn-light').attr('data-dismiss','modal').append('Bağla'))
 
        footerBtn.append(btn)
 }
@@ -994,7 +987,7 @@ function rhFactorFn() {
 // end All pasientList add---------------------------------
 
 
-// start Pasient DataTable----------------------------------------
+//5. start Pasient DataTable----------------------------------------
 function dataTable2(){
     $('#example2',).DataTable({             
         "dom": 'Bfrltip',
@@ -1113,12 +1106,189 @@ function PasientDataTable(res){
     }
  }
  
-//  UPDATE PASIENT MODAL
-
-  
-
-
-
- 
 // start Pasient DataTable----------------------------------------
 
+
+// 6. Seessia - Nurse (TibbBacısı) Question
+
+// function questionNurse(){
+//     console.log('ok')
+//     var question=$('#questionContent')
+
+//     var q=($('<div>').addClass('modal-content')
+//         .append($('<div>').addClass('modal-header')
+//         .append($('<div>').addClass('col-3 d-flex justify-content-left').append($('<h3>').append('2 / 3')))
+        
+//         .append($("<div>").addClass('form-group col-md-6 patientSelectBox  d-flex justify-content-center')
+//         .append($('<select>').addClass('noSearch selectStyle w-100')
+//         .append($('<option>').addClass('active').append(''))
+//         .append($('<option>').append('Şikayət'))
+//         .append($('<option>').append('Anamnez')) ))
+
+//         .append($('<button>').attr('type', 'button').addClass('close').attr('data-dismiss', 'modal').attr('aria-label','Close')
+//         .append($('<span>').attr('aria-hidden', true).append('&times;'))
+//         ))  
+
+//         .append($('<div>').addClass('modal-body')
+//         .append($("<fieldset>")
+//         .append($('<div>').addClass('form-bottom')
+//         .append($('<div>').addClass('row')
+
+//         .append($('<div>').addClass('form-group col-md-12').append($('<label>').append($('<i>').addClass('fa fa-user').append('Patient ID')))
+//         .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').prop('disabled', true).attr('value','34FF'))  )
+
+//         .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
+//         .append($("<label>").append('Necə başladı'))
+//         .append($('<select>').addClass('noSearch selectStyle')
+//         .append($('<option>').addClass('active').append(''))
+//         .append($('<option>').append('Ani'))) )
+
+//         .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
+//         .append($("<label>").append('Sonrakı gedişi'))
+//         .append($('<select>').addClass('noSearch selectStyle')
+//         .append($('<option>').addClass('active').append(''))
+//         .append($('<option>').append('Pisləşdi'))) )
+
+//         .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
+//         .append($("<label>").append('Şikayətlərinizi nə ilə əlaqələndirirsiniz ?'))
+//         .append($('<select>').addClass('noSearch selectStyle')
+//         .append($('<option>').addClass('active').append(''))
+//         .append($('<option>').append('Çox danışmaq'))) )
+
+//         .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
+//         .append($("<label>").append('Bu şikayətinizlə bağlı müayinə olmusunuz mu ?'))
+//         .append($('<select>').addClass('noSearch selectStyle')
+//         .append($('<option>').addClass('active').append(''))
+//         .append($('<option>').append('Xeyir'))) )
+        
+//         .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
+//         .append($("<label>").append('Bu şikayətinizlə bağlı aldığınız müalicələri qeyd edin '))
+//         .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('value', '')))
+
+//         .append($('<div>').addClass('form-group col-md-4 patientSelectBox')
+//         .append($("<label>").append('Şikayətiniz nə zaman başlayıb?'))
+//         .append($('<input>').addClass('form-control  apd-form-input').attr('type','text').attr('value', '')))    ))))
+        
+//         .append($('<div>').addClass('modal-footer col-12')
+//         .append($('<button>').attr('type','button').addClass('btn btn-default btn-prev').append('Prev'))
+//         .append($('<button>').attr('type','button').addClass('btn btn-default btn-next').append('Next'))
+//         .append($('<button>').attr('type','button').addClass('btn btn-default').attr('data-dismiss','modal').append('Close'))
+        
+//         )
+        
+        
+//         )
+        
+//     question.append(q)
+
+// }
+
+function generalPatientFn(id){
+
+    var json = { kv: {} };
+
+    try {
+        json.kv.cookie = getTokenDiff();
+        json.kv.fkPatientId = id;
+    } catch (err) {
+   
+    }
+  
+    var data = JSON.stringify(json);
+    $.ajax({
+        url: urlGl+"api/post/srv/serviceCrGetAppointmentList",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (res) {
+           addNewSessiaArea()
+           questioFnArea(res.tbl[0].r[0].id) 
+        },
+        error: function (res, status) {
+        
+        }
+    }); 
+   
+}
+function bodyFn(res){
+    var bodyFn=$('#bodyDiv')
+    var b=$('<div>').append(res.kv.body)
+    bodyFn.append(b)
+}
+
+function questioFnArea(id) {   
+    var json = { kv: {} };
+   
+    try {
+        json.kv.cookie = getTokenDiff();
+
+    } catch (err) {
+   
+    }
+  
+   json.kv.fkSessionId=id;
+  
+
+    var data = JSON.stringify(json);
+    $.ajax({
+        url: urlGl+"api/post/srv/serviceCrGenSubmoduleButtonList",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (res) {
+            bodyFn(res)
+            // console.log('===>',res.kv.body)
+        },
+        error: function (res, status) {
+        //  lert(getMessage('somethingww'));
+        }
+    });      
+}
+
+$('#popup1').on('show.bs.modal', function (e) {
+    console.log(e);
+})
+
+
+// function questionBody(){
+//     var bodyFn2=$('#questionBody')
+//     var b2=$('<div>').append(res.kv.body)
+//     .append($('<label>').append(res.kv.header))
+//     bodyFn2.append(b2)
+// }
+
+// function questioModal(id) {   
+//     var json = { kv: {} };
+   
+//     try {
+//         json.kv.cookie = getTokenDiff();
+
+//     } catch (err) {
+   
+//     }
+  
+//    json.kv.fkSessionId=id;
+
+   
+//     var data = JSON.stringify(json);
+//     $.ajax({
+//         url: urlGl+"api/post/srv/serviceCrGetSubmoduleFormBody",
+//         type: "POST",
+//         data: data,
+//         contentType: "application/json",
+//         crossDomain: true,
+//         async: false,
+//         success: function (res) {
+//             questionBody(res)
+//             console.log('-------->', res)
+//             console.log('===>', res.kv.body)
+//         },
+//         error: function (res, status) {
+//         //  lert(getMessage('somethingww'));
+//         }
+//     });      
+// }

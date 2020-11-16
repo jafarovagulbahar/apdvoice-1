@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button class="btn-custom form-control"  data-toggle="modal" data-target="#pasientAddModal" onclick="AddNewPasientArea()"><b>Pasient əlavə et <i class="fa fa-plus"> </i></b></button>
+                                <button class="btn-custom form-control add-patinet-btn"  data-toggle="modal" data-target="#pasientAddModal" onclick="AddNewPasientArea()"><b>Pasient əlavə et <i class="fa fa-plus"> </i></b></button>
                             </div>
                         </div>
                     </div>
@@ -45,11 +45,11 @@
             </div>   
         </div>
        
-        <button onclick="GetAppointmentListPasient()">Pasient table</button>
+          <button onclick="GetAppointmentList()">SessiaTable</button>
         <div class="content">   
-            <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%" style="color:black">
-                <thead id="PasinetTableThead"> </thead>
-                <tbody id="PasinetTableBody">  </tbody>
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style="color:black">
+                <thead id="DoctorDataTableHeader"> </thead>
+                <tbody id="DoctorDataTable">  </tbody>
             </table>
 
             <footer class="footer">

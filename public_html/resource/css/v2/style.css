@@ -451,7 +451,14 @@ width: 30%;
   width:auto;
 }
 }
-
+.selectStyle option .active{
+  position: relative;
+}
+.selectStyle option .active::after{
+  position: absolute;
+  content: '';
+  background-color: red;
+}
 .patientSelectBox {
   display:grid;
 }
