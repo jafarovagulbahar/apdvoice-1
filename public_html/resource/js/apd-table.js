@@ -53,7 +53,7 @@ function isDate(d) {
 }
 
 function convertDate(date) {
-    date = date.substring(6, 10) + date.substring(3, 5) + date.substring(0, 2);
+    date = date.substring(0, 4) +'-'+ date.substring(4, 6) +'-'+ date.substring(6, 8);
 //    var pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
 //    var dt = new Date(st.replace(pattern, '$3-$2-$1'));
     return date;

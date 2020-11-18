@@ -109,9 +109,9 @@
                             <nav class="nav-menu2">
                                 <ul >
                                     <li ><a href="#" data-toggle="modal" data-target="#newSessiaModal" ><i class="fa fa-heartbeat"></i><span>Yeni Sessiya</span></a></li>
-                                    <li><a href="#"><i class="fa fa-medkit" aria-hidden="true" ></i><span>Sessiyanı bitir</span></a></li>
-                                    <li><a href="#"><i class="fa fa-user-md" aria-hidden="true"></i><span>Müayinə siyahisi</span></a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#incModal" onclick="getIncspection()"><i class="fa fa-user-md" aria-hidden="true" ></i><span>Müayinə siyahisi</span></a></li>
                                     <li><a href="#"><i class="fa fa-stethoscope" aria-hidden="true"></i><span>Sessiya siyahisi</span></a></li>
+                                    <li><a href="#"><i class="fa fa-medkit" aria-hidden="true" ></i><span>Sessiyanı bitir</span></a></li>
                                     <li><a href="#"><i class="fa fa-print" aria-hidden="true"></i><span>Hesabat/Print</span></a></li>
                                 </ul>
                             </nav>
@@ -222,6 +222,49 @@
     </div>
   </div>
 
+  <!-- Muayine siyahisi Modal -->
+ 
+  <div class="modal fade" id="incModal" tabindex="-1" role="dialog" aria-labelledby="incModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" id="printSection">
+        <div class="modal-header noPrint" >
+          <button onclick="window.print()" class='print'>print</button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="constHeader">
+
+        </div>
+        <div class="modal-body">
+       <table class="table table-hover" border="1">
+        <thead id="incHead">
+
+        </thead>
+          <tbody id="incBody">
+             
+            
+          </tbody>
+       </table>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- Question Patient Modal 2-->
+    <div class="modal fade" id="popup1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog patinetAddModalBody"  >
+            <div class="modal-content" id="questionBody" >
+             
+               fhfhfhfhfhfh
+               sjjsjs
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog patinetAddModalBody">
            <div class="modal-content">
@@ -262,15 +305,15 @@
                         <option>Müalicə (Səs terapiyası)</option>
                         <option>Müalicə (Cərrahi)</option>
                       </select>
-                 </div>
+                     </div>
      
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                 </div>
+             </div>
                 <div class="modal-body">       
                <fieldset style="display: block;">
                  
                        
-                 <div class="form-bottom">
+                  <div class="form-bottom">
                    <div class="row">
      
                       <div class="form-group col-md-12"> 
@@ -384,8 +427,7 @@
                      </div>    
      
                          </div>
-                </div>
-                
+                       </div>
               </fieldset>
                 </div>
                    <div class="modal-footer col-12">
@@ -398,16 +440,124 @@
      </div>
 
     <!-- Question Patient Modal 2-->
-    <div class="modal fade" id="popup1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog patinetAddModalBody"  >
-            <div class="modal-content" id="questionBody" >
-             
-               fhfhfhfhfhfh
-               sjjsjs
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog patinetAddModalBody">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-3 d-flex justify-content-left">
+                       <h3> 2 / 3</h3>
+                    </div> 
+       
+                    <div class="form-group col-md-6 patientSelectBox  d-flex justify-content-center"> 
+                         <select class="noSearch selectStyle" >
+                          <option class="active"></option>
+                          <option>Şikayət</option>
+                          <option>Anamnez</option>
+                          <option>An.Vitae</option>
+                          <option>Səs gigiyenası</option>
+                          <option>Akustik Analiz</option>
+                          <option>Aerodinamik qiymətləndirmə (Spirometry test)</option>
+                          <option>Perseptual qiymətləndirmə</option>
+                          <option>VHI</option>
+                          <option>Səs ilə əlaqəli həyat keyfiyyət indeksi</option>
+                          <option>RSI</option>
+                          <option>RFS</option>
+                          <option>SVHI</option>
+                          <option>PVHI Part I-F</option>
+                          <option>PVHI Part II-P</option>
+                          <option>PVHI Part III-E</option>
+                          <option>DI</option>
+                          <option>CSI</option>
+                          <option>EAT</option>
+                          <option>Ümumi Lor müayinəsi</option>
+                          <option>VLS nəticələri</option>
+                          <option>EMG</option>
+                          <option>Video əlavə et</option>
+                          <option>Şəkil əlavə et</option>
+                          <option>Digər</option>
+                          <option>Diaqnoz</option>
+                          <option>Müalicə (Konservativ)</option>
+                          <option>Müalicə (Səs terapiyası)</option>
+                          <option>Müalicə (Cərrahi)</option>
+                        </select>
+                       </div>
+       
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               </div>
+                <div class="modal-body">       
+                    <fieldset style="display: block;">          
+                        <div class="form-bottom">
+                            <div class="row">
+
+                                <div class="form-group col-md-12"> 
+                                    <label qlang=""><i class="fa fa-user"></i> Patient ID </label> 
+                                    <input class="form-control  apd-form-input" disabled type="text"  placeholder="34FF"> 
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Necə başladı</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Ani</option>
+                                        <option>Yavaş-yavaş</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Sonrakı gedişi</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Pisləşdi</option>
+                                        <option>Yaxşılaşdı</option>
+                                        <option>Eynidir</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox noTwoSelect"> 
+                                    <label qlang="">Şikayətlərinizi nə ilə əlaqələndirirsiniz ?</label> 
+                                    <select class=" noSearch selectStyle" >
+                                        <option>Çox danışmaq</option>
+                                        <option>Yüksək səslə danışmaq</option>
+                                        <option>Yemək içmək</option>
+                                        <option>Məsləyimlə</option>
+                                        <option>Əsəb</option>
+                                        <option>Digər</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Bu şikayətinizlə bağlı müayinə olmusunuz mu?</label> 
+                                    <select class="noSearch selectStyle">
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Bu şikayətinizlə bağlı aldığınız müalicələri qeyd edin</label> 
+                                    <input class="form-control  apd-form-input" type="text" placeholder=""> 
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Şikayətiniz nə zaman başlayıb?</label> 
+                                    <input class="form-control  apd-form-input" type="text"  placeholder=""> 
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer col-12">
+                    <button type="button" class="btn btn-default btn-prev">Prev</button>
+                    <button type="button" class="btn btn-default btn-next">Next</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-
     <!-- Question Patient Modal 3-->
     <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog patinetAddModalBody">

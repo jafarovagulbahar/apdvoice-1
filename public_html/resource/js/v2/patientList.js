@@ -2,11 +2,26 @@
 
 
 //    -----------------------------------------------------------------------------------------------------------------------------
+// ConvertDate
+function convertDate(date) {
+    date = date.substring(0, 4) +'-'+ date.substring(4, 6) +'-'+ date.substring(6, 8);
+    return date;
+}
+
+function convertTime(date) {
+    date2 = date.substring(0, 2) +':'+ date.substring(2, 4);
+    return date;
+}
+function convertTimeSeconds(date) {
+    date = date.substring(0, 2) +':'+ date.substring(2, 4)+ ':' +date.substring(4);
+    return date;
+}
 
 // dataTable
 
 function dataTable(){
-    $('#example',).DataTable({             
+    $('#example',).DataTable({  
+               
         "dom": 'Bfrltip',
         responsive: true,
         "paging": true,
@@ -17,13 +32,46 @@ function dataTable(){
                 text: function (dt, button, config) {
                     return dt.i18n('buttons.colvis', 'Column');
                 }
+            },
+            
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                columns: "thead th:not(.noExport)",
+                
+                }
+               },
+               {
+            
+                extend: 'excelHtml5',
+                exportOptions: {
+                columns: "thead th:not(.noExport)",
+                pageSize: 'A4'
+                
+                }
+               },
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL',
+                pageSize: 'A4',
+                exportOptions: {
+                columns: "thead th:not(.noExport)",
+               
             }
-            ,
-            'copyHtml5',
-            'excelHtml5',
-            'pdfHtml5',
-            'print',
+            
+           },
+           {
+            extend: 'print',
+            exportOptions: {
+            columns: "thead th:not(.noExport)",
+            pageSize: 'A4',
+            
+            }
+           },
+            
         ],
+        
 
         initComplete: function () {
             $('.buttons-copy').html('<i class="fa fa-copy" />')
@@ -41,11 +89,86 @@ function dataTable(){
                 next: '<i class="fa fa-angle-double-right">',
                 previous: '<i class="fa fa-angle-double-left">'
             }
-        },
+        }
      
 
     });
     
+}
+
+// Pasient Data Table
+function dataTable2(){
+    $('#example2',).DataTable({             
+        "dom": 'Bfrltip',
+        responsive: true,
+        "paging": true,
+        "autoWidth": true,
+        "buttons": [
+            {
+                extend: 'colvis',
+                text: function (dt, button, config) {
+                    return dt.i18n('buttons.colvis', 'Column');
+                }
+            },
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                columns: "thead th:not(.noExport)",
+          
+                
+                }
+               },
+               {
+            
+                extend: 'excelHtml5',
+                exportOptions: {
+                columns: "thead th:not(.noExport)",
+                pageSize: 'A4',
+                
+                }
+               },
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL',
+                exportOptions: {
+                columns: "thead th:not(.noExport)",
+                pageSize: 'A4',
+               
+            }
+           },
+           {
+            extend: 'print',
+            exportOptions: {
+            columns: "thead th:not(.noExport)",
+            pageSize: 'A4',
+            
+            }
+           },
+            
+        ],
+        
+
+        initComplete: function () {
+            $('.buttons-copy').html('<i class="fa fa-copy" />')
+
+            $('.buttons-excel').html('<i class="fa fa-file-excel-o" />')
+            $('.buttons-pdf').html('<i class="fa fa-file-pdf-o" />')
+            $('.buttons-print').html('<i class="fa fa-print" />')
+
+        },
+        "language": {
+            "lengthMenu": " _MENU_ ",
+            "search": "",
+
+            paginate: {
+                next: '<i class="fa fa-angle-double-right">',
+                previous: '<i class="fa fa-angle-double-left">'
+            }
+        }
+     
+
+    });
 }
 // Next Prev Modal Fn
         $(document).ready(function () {
@@ -316,10 +439,10 @@ function doctorDataTable(res){
     var thead=$('#DoctorDataTableHeader')
     var p=$('<tr>')
         .append($('<th>').append('№'))
-        .append($('<th>').append('Suallar'))
+        .append($('<th>').addClass('noExport').append('Suallar'))
         .append($('<th>').append('Status'))
         .append($('<th>').append('Təyinat'))
-        .append($('<th>').append('Tarix'))
+        .append($('<th>').append('Tarix&nbsp;&nbsp;&nbsp;&nbsp;'))
         .append($('<th>').append('Saat(dan)'))
         .append($('<th>').append('Saat(a)'))
         .append($('<th>').append('Status'))
@@ -328,7 +451,7 @@ function doctorDataTable(res){
         .append($('<th>').append('Izahat')) 
         .append($('<th>').append('Cinsiyyət'))
         .append($('<th>').append('Modul adı'))
-        .append($('<th>').append('Delete'))
+        .append($('<th>').addClass('noExport').append('Delete'))
 
   thead.append(p); 
 
@@ -342,9 +465,9 @@ function doctorDataTable(res){
            .append($('<i>').addClass('fa fa-question')) )
            .append($('<div>').addClass('dropdown-menu dropMenuQues').attr('aria-labelledby','apdQuestions'+obj[i].id)
    
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('data-toggle','modal').attr('data-target','#myModalAA').append('Şikayət'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('data-toggle','modal').attr('data-target','#myModalAA').append('Anamnez'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('data-toggle','modal').attr('data-target','#myModalAA').append('An.Vitae'))
+           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal1').append('Şikayət'))
+           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal2').append('Anamnez'))
+           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal3').append('An.Vitae'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal4').append('Səs gigiyenası'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal5').append('Akustik Analiz'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal6').append('Aerodinamik qiymətləndirmə (Spirometry test)'))
@@ -376,9 +499,9 @@ function doctorDataTable(res){
 
            .append($('<td>').addClass('_0c').append(o.status))
            .append($('<td>').addClass('_1c').append(o.purpose))
-           .append($('<td>').addClass('_2c').append(o.insertDate))
-           .append($('<td>').addClass('_3c').append(o.appointmentTime1))
-           .append($('<td>').addClass('_4c').append(o.appointmentTime2))
+           .append($('<td>').addClass('_2c').append(convertDate(o.insertDate)))
+           .append($('<td>').addClass('_3c').append(convertTimeSeconds(o.appointmentTime1)))
+           .append($('<td>').addClass('_4c').append(convertTimeSeconds(o.appointmentTime2)))
            .append($('<td>').addClass('_5c').append(o.appointmentStatusName))
            .append($('<td>').addClass('_6c').append(o.patientName))
            .append($('<td>').addClass('_7c').append(o.doctorFullname))
@@ -453,13 +576,13 @@ function addNewSessiaArea(){
 
     var List = $('#purposeSessia');
     for (var i = 0; i < purposes.length; i++) {
-        var p = $('<option>').attr('value', i).append(purposes[i].paymentName); 
+        var p = $('<option>').attr('value', purposes[i].id).append(purposes[i].paymentName); 
         List.append(p); 
     }
 
     var doc = $('#doctor');
     for (var i = 0; i < doctor.length; i++) {
-        var d = $('<option>').attr('value', i).append(doctor[i].userPersonName,  doctor[i].userPersonSurname, doctor[i].userPersonMiddlename); 
+        var d = $('<option>').attr('value', doctor[i].id).append(doctor[i].userPersonName,  doctor[i].userPersonSurname, doctor[i].userPersonMiddlename); 
         doc.append(d); 
     }
    
@@ -808,36 +931,36 @@ function AddNewPasientArea(resData){
 
        var List2 = $('#maritalStatus');
        for (var i = 0; i < maritual.length; i++) {
-           var p = $('<option>').append(maritual[i].itemValue); 
+           var p = $('<option>').attr('value',maritual[i].id ).append(maritual[i].itemValue); 
            List2.append(p); 
        }
 
        var List3 = $('#occupation');
        for (var i = 0; i < occupatio.length; i++) {
-           var p = $('<option>').append(occupatio[i].itemValue); 
+           var p = $('<option>').attr('value',occupatio[i].id ).append(occupatio[i].itemValue); 
            List3.append(p); 
        }
 
        var List4 = $('#edu');
        for (var i = 0; i < edu.length; i++) {
-           var p = $('<option>').append(edu[i].itemValue); 
+           var p = $('<option>').attr('value', edu[i].id ).append(edu[i].itemValue); 
            List4.append(p); 
        }
 
        var List5 = $('#gender');
        for (var i = 0; i < gender.length; i++) {
-           var p = $('<option>').append(gender[i].itemValue); 
+           var p = $('<option>').attr('value',gender[i].id ).append(gender[i].itemValue); 
            List5.append(p); 
        }
 
        var List6 = $('#bloodGroup');
        for (var i = 0; i < bloodGroup.length; i++) {
-           var p = $('<option>').append(bloodGroup[i].itemValue); 
+           var p = $('<option>').attr('value',bloodGroup[i].id ).append(bloodGroup[i].itemValue); 
            List6.append(p); 
        }
        var List7 = $('#rhFactor');
        for (var i = 0; i < rhFactor.length; i++) {
-           var p = $('<option>').append(rhFactor[i].itemValue); 
+           var p = $('<option>').attr('value',rhFactor[i].id ).append(rhFactor[i].itemValue); 
            List7.append(p); 
        }
 
@@ -988,48 +1111,7 @@ function rhFactorFn() {
 
 
 //5. start Pasient DataTable----------------------------------------
-function dataTable2(){
-    $('#example2',).DataTable({             
-        "dom": 'Bfrltip',
-        responsive: true,
-        "paging": true,
-        "autoWidth": true,
-        "buttons": [
-            {
-                extend: 'colvis',
-                text: function (dt, button, config) {
-                    return dt.i18n('buttons.colvis', 'Column');
-                }
-            }
-            ,
-            'copyHtml5',
-            'excelHtml5',
-            'pdfHtml5',
-            'print',
-        ],
 
-        initComplete: function () {
-            $('.buttons-copy').html('<i class="fa fa-copy" />')
-
-            $('.buttons-excel').html('<i class="fa fa-file-excel-o" />')
-            $('.buttons-pdf').html('<i class="fa fa-file-pdf-o" />')
-            $('.buttons-print').html('<i class="fa fa-print" />')
-
-        },
-        "language": {
-            "lengthMenu": " _MENU_ ",
-            "search": "",
-
-            paginate: {
-                next: '<i class="fa fa-angle-double-right">',
-                previous: '<i class="fa fa-angle-double-left">'
-            }
-        },
-     
-
-    });
-    
-}
 function GetAppointmentListPasient(e) {
     
     var json = { kv: {} };
@@ -1074,7 +1156,7 @@ function PasientDataTable(res){
             .append($('<th>').append('Şəhər'))
             .append($('<th>').append('İzahat')) 
             .append($('<th>').append('Ətraflı')) 
-            .append($('<th>').append('Silmək')) 
+            .append($('<th>').addClass('noExport').append('Silmək')) 
 
             PasientThead.append(pT); 
 
@@ -1249,9 +1331,9 @@ function questioFnArea(id) {
     });      
 }
 
-$('#popup1').on('show.bs.modal', function (e) {
-    console.log(e);
-})
+// $('#popup1').on('show.bs.modal', function (e) {
+//     console.log(e);
+// })
 
 
 // function questionBody(){
@@ -1292,3 +1374,94 @@ $('#popup1').on('show.bs.modal', function (e) {
 //         }
 //     });      
 // }
+
+
+// Müayinə Siyahisi
+function incspectionTable(res){
+
+    
+    var obj = res.tbl[0].r;
+   var tableConst=$('#constHeader').html('');
+   var c=$('<div>').addClass('row constHeader')
+
+   .append($('<div>').addClass('form-group apd-form col-md-6')
+   .append($('<label>').addClass('').append('Patient ID'))
+   .append($('<div>').addClass('form-control apd-form-input_constHeader ').append( obj[0].patientName)) )
+
+   
+   .append($('<div>').addClass('form-group apd-form col-md-6')
+   .append($('<label>').addClass('').append('Həkim'))
+   .append($('<div>').addClass('form-control apd-form-input_constHeader ').append( obj[0].doctorFullname)) )
+
+
+   .append($('<div>').addClass('form-group apd-form col-md-6')
+   .append($('<label>').addClass('').append('Modul adı'))
+   .append($('<div>').addClass('form-control apd-form-input_constHeader ').append( obj[0].moduleName)) )
+
+   .append($('<div>').addClass('form-group apd-form col-md-4')
+   .append($('<label>').addClass('').append('Tarix'))
+   .append($('<div>').addClass('form-control apd-form-input_constHeader ').append(convertDate(obj[0].inspectionDate))) )
+
+
+   .append($('<div>').addClass('form-group apd-form col-md-2')
+   .append($('<label>').addClass('timsLabel').append('Saat'))
+   .append($('<div>').addClass('form-control apd-form-input_constHeader ').append(convertTime(obj[0].inspectionTime))) )
+
+   tableConst.append(c)
+
+    var incTable=$('#incHead').html('')
+    var inc=$('<tr>')
+    .append($('<th>').append('№'))
+    .append($('<th>').append('Attribute'))
+    .append($('<th>').append('Final Dəyər'))
+    .append($('<th>').append('Submodul adı'))
+   
+    incTable.append(inc)
+
+    var incBodytable=$('#incBody').html('');
+    var obj = res.tbl[0].r;
+    for (var i = 0; i < obj.length; i++) {
+        var o=obj[i];
+        var t=($('<tr>')
+            .append($('<td>').addClass('apd-table-td').append(i+1))
+            .append($('<td>').addClass('apd-table-td').append(o.attributeName))
+            .append($('<td>').addClass('apd-table-td').append(o.finalValue))  
+            .append($('<td>').addClass('apd-table-td').append(o.submoduleName))            
+           
+            )
+          
+            incBodytable.append(t); 
+ 
+     }
+
+
+}
+
+function getIncspection() {   
+        var json = { kv: {} };
+       
+        try {
+            json.kv.cookie = getToken();
+    
+        } catch (err) {
+       
+        }
+      
+      
+        var data = JSON.stringify(json);
+        $.ajax({
+            url: urlGl+"api/post/srv/serviceCrGetInspectionList",
+            type: "POST",
+            data: data,
+            contentType: "application/json",
+            crossDomain: true,
+            async: false,
+            success: function (res) {
+                incspectionTable(res)
+            },
+            error: function (res, status) {
+            //  lert(getMessage('somethingww'));
+            }
+        });      
+    }
+    
