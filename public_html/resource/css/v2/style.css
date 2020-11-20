@@ -689,7 +689,7 @@ padding-left: 20px;
 padding-right: 20px;
 background: #fff !important;
 color: rgba(0, 0, 0, 0.5) !important;
-font-size: 16px;
+font-size: 14px;
 border-radius: 30px;
 
 -webkit-box-shadow: none !important;
@@ -697,6 +697,9 @@ box-shadow: none !important; }
 
 .btn-custom b{
   margin: auto;
+}
+#patinetlistcombo a{
+  font-size: 14px;
 }
 
 .appointment-form-intro .btn-custom {
@@ -1069,4 +1072,29 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
   margin-right: 0px;
   margin-left: 0px;
 }
-
+.word-export{
+  background-color: #ffffff;
+    box-shadow: 0px 1px 5px #aba8d4;
+    border-radius: 10px;
+    padding: 3px 12px;
+    border: none;
+    outline: none;
+}
+.word-export:active{
+  border: none;
+}
+#incHead{
+  background-color: #eeeeee;
+}
+#example3_filter{
+  display: none;
+}
+#example3_length{
+  display: none;
+}
+#example .buttons-colvis{
+ display: none;
+}
+.apd-page-btn{
+  display: none;
+}

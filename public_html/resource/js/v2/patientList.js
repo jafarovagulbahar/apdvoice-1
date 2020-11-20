@@ -170,6 +170,9 @@ function dataTable2(){
 
     });
 }
+
+
+
 // Next Prev Modal Fn
         $(document).ready(function () {
 
@@ -194,7 +197,7 @@ function dataTable2(){
   
 
 // patient selectbox value append
-$(document).on("click",'#patinetlistcombo li a', function (e) {
+$(document).on("click",'#patinetlistcombo a', function (e) {
     ulVal= $(this).parent().find('input').val();
     //PasientName search inputuna elave olunur
      document.getElementById('pasientInput').value=ulVal;
@@ -312,8 +315,10 @@ function pasientListCombo(res){
  
     var obj = res.tbl[0].r;
     for (var i = 0; i < obj.length; i++) {
-        var p = $('<li>').addClass('patient_li').append($('<input>').attr('type','hidden').attr( 'value', obj[i].patientName))
-        .append($('<a>').attr('href','#').attr('data-value', obj[i].patientName ).append(obj[i].patientName).attr('id','patentID'+obj[i].id).attr('onclick','generalPatientFn("'+obj[i].id+'")'));                        
+        var p = $('<span>').append($('<a>').attr('href','#').addClass('patient_li dropdown-item').attr('data-value', obj[i].patientName )
+        .append(obj[i].patientName).attr('id','patentID'+obj[i].id).attr('onclick','generalPatientFn("'+obj[i].id+'")')
+        .append($('<input>').attr('type','hidden').attr( 'value', obj[i].patientName)))
+                             
         patientList.append(p); 
  } 
 
@@ -376,6 +381,7 @@ function getpatientList(e) {
 }
 
 function pasientFilter() {
+
     var json = { kv: {} };
  
     try {
@@ -392,7 +398,7 @@ function pasientFilter() {
         data: data,
         contentType: "application/json",
         crossDomain: true,
-        async: false,
+        async: true,
         success: function (res) {
 
              pasientListCombo(res)
@@ -461,16 +467,16 @@ function doctorDataTable(res){
        var o=obj[i];
        var t=($('<tr>')
            .append($('<td>').addClass('apd-table-td').append(i+1))
-           .append($('<td>').addClass('apd-table-td').append($('<a>').addClass('question-icon dropdown-toggle').attr('id','apdQuestions'+obj[i].id).attr('href','#').attr('data-toggle','dropdown').attr('aria-haspopup','true').attr('aria-expanded','false')
+           .append($('<td>').addClass('apd-table-td').append($('<a>').addClass('question-icon dropdown-toggle').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('href','#').attr('data-toggle','dropdown').attr('aria-haspopup','true').attr('aria-expanded','false')
            .append($('<i>').addClass('fa fa-question')) )
            .append($('<div>').addClass('dropdown-menu dropMenuQues').attr('aria-labelledby','apdQuestions'+obj[i].id)
    
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal1').append('Şikayət'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal2').append('Anamnez'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal3').append('An.Vitae'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal4').append('Səs gigiyenası'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal5').append('Akustik Analiz'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal6').append('Aerodinamik qiymətləndirmə (Spirometry test)'))
+           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#popup1').append('Şikayət'))
+           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal2').append('Anamnez'))
+           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal3').append('An.Vitae'))
+           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal4').append('Səs gigiyenası'))
+           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal5').append('Akustik Analiz'))
+           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal6').append('Aerodinamik qiymətləndirmə (Spirometry test)'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal7').append('Perseptual qiymətləndirmə'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal8').append('VHI'))
            .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal9').append('Səs ilə əlaqəli həyat keyfiyyət indeksi'))
@@ -677,13 +683,12 @@ function InsertNewSessia() {
                 $('.patientMandatory').css('none')
             }
 
-            $("#patientSessiaId").val('');
-            $( "#doctor option:selected" ).val('');
+          
             $('#dateSessia').val('');
             $('#time1').val('');
             $('#time2').val('');
             $('#sessiaText').val('');
-            $('#purposeSessia option:selected').val('');
+           
         },
         error: function (res, status) {
         //  lert(getMessage('somethingww'));
@@ -795,7 +800,7 @@ function updatePasient(_id){
         data: data,
         contentType: "application/json",
         crossDomain: true,
-        async: false,
+        async: true,
         success: function (res) {
             AddNewPasientArea(res.tbl[0].r)
         },
@@ -1265,12 +1270,13 @@ function PasientDataTable(res){
 
 // }
 
+// bu funksiya api-si ferqli yerlerdede işlendiyi ucun generaldi (içinde ayry ayri funksiyalar çagirilıb)
 function generalPatientFn(id){
 
     var json = { kv: {} };
 
     try {
-        json.kv.cookie = getTokenDiff();
+        json.kv.cookie = getToken();
         json.kv.fkPatientId = id;
     } catch (err) {
    
@@ -1286,7 +1292,7 @@ function generalPatientFn(id){
         async: false,
         success: function (res) {
            addNewSessiaArea()
-           questioFnArea(res.tbl[0].r[0].id) 
+        //    questioFnArea(res.tbl[0].r[0].id) 
         },
         error: function (res, status) {
         
@@ -1294,23 +1300,22 @@ function generalPatientFn(id){
     }); 
    
 }
-function bodyFn(res){
-    var bodyFn=$('#bodyDiv')
-    var b=$('<div>').append(res.kv.body)
-    bodyFn.append(b)
-}
+
+// ekrana gelen buttonlar
+
 
 function questioFnArea(id) {   
     var json = { kv: {} };
    
     try {
-        json.kv.cookie = getTokenDiff();
+        json.kv.cookie = getToken();
 
     } catch (err) {
    
     }
-  
+   
    json.kv.fkSessionId=id;
+ 
   
 
     var data = JSON.stringify(json);
@@ -1322,8 +1327,10 @@ function questioFnArea(id) {
         crossDomain: true,
         async: false,
         success: function (res) {
-            bodyFn(res)
-            // console.log('===>',res.kv.body)
+            document.getElementById("bodyDiv").innerHTML = res.kv.body
+            console.log('===>',res.kv.body)
+            smodule_id = $(".apd-subm-attr-button").first().attr("submodule_id");
+            console.log(smodule_id)
         },
         error: function (res, status) {
         //  lert(getMessage('somethingww'));
@@ -1331,49 +1338,51 @@ function questioFnArea(id) {
     });      
 }
 
-// $('#popup1').on('show.bs.modal', function (e) {
-//     console.log(e);
-// })
+// end // ekrana gelen buttonlar
 
+function questionBody(res){
+    var bodyFn2=$('#questionBody').html('')
+    var b2=$('<div>')
+    .append($('<label>').append(res.kv.header))
+    .append($('<div>').append(res.kv.body))
+    bodyFn2.append(b2)
+}
 
-// function questionBody(){
-//     var bodyFn2=$('#questionBody')
-//     var b2=$('<div>').append(res.kv.body)
-//     .append($('<label>').append(res.kv.header))
-//     bodyFn2.append(b2)
-// }
-
-// function questioModal(id) {   
-//     var json = { kv: {} };
+function questioModal(id) {   
+    console.log(id)
+    var json = { kv: {} };
    
-//     try {
-//         json.kv.cookie = getTokenDiff();
+    try {
+        json.kv.cookie = getToken();
 
-//     } catch (err) {
+    } catch (err) {
    
-//     }
-  
-//    json.kv.fkSessionId=id;
+    }
+   
+    smodule_id = $(".apd-subm-attr-button").first().attr("submodule_id");
+
+   json.kv.fkSessionId=id;
+   json.kv.fkSubmoduleId=smodule_id;
 
    
-//     var data = JSON.stringify(json);
-//     $.ajax({
-//         url: urlGl+"api/post/srv/serviceCrGetSubmoduleFormBody",
-//         type: "POST",
-//         data: data,
-//         contentType: "application/json",
-//         crossDomain: true,
-//         async: false,
-//         success: function (res) {
-//             questionBody(res)
-//             console.log('-------->', res)
-//             console.log('===>', res.kv.body)
-//         },
-//         error: function (res, status) {
-//         //  lert(getMessage('somethingww'));
-//         }
-//     });      
-// }
+    var data = JSON.stringify(json);
+    $.ajax({
+        url: urlGl+"api/post/srv/serviceCrGetSubmoduleFormBody",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (res) {
+            questionBody(res)
+            console.log('-------->', res)
+            // console.log('===>', res.kv.body)
+        },
+        error: function (res, status) {
+        //  lert(getMessage('somethingww'));
+        }
+    });      
+}
 
 
 // Müayinə Siyahisi
@@ -1405,7 +1414,7 @@ function incspectionTable(res){
 
    .append($('<div>').addClass('form-group apd-form col-md-2')
    .append($('<label>').addClass('timsLabel').append('Saat'))
-   .append($('<div>').addClass('form-control apd-form-input_constHeader ').append(convertTime(obj[0].inspectionTime))) )
+   .append($('<div>').addClass('form-control apd-form-input_constHeader ').append(convertTimeSeconds(obj[0].inspectionTime))) )
 
    tableConst.append(c)
 
@@ -1458,6 +1467,7 @@ function getIncspection() {
             async: false,
             success: function (res) {
                 incspectionTable(res)
+                dataTable3()
             },
             error: function (res, status) {
             //  lert(getMessage('somethingww'));

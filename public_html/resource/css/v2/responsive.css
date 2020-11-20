@@ -7,6 +7,7 @@
   display: none;
   color: #fff;
 }
+
 }
 
 @media (min-width: 576px){
@@ -95,6 +96,9 @@
   font-size: 10px;
 }#example{
   font-size: 12px;
+}
+#patinetlistcombo {
+  width: 300px;
 }
 }
 
