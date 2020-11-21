@@ -2066,8 +2066,6 @@ function doSubmoduleFormShow(e) {
     var el = $(e);
     var smodule_id = el.attr("submodule_id");
     if (typeof smodule_id === 'undefined' || !smodule_id) {
-//        alert(getMessage("submoduleIsNotSelected"));
-//        return;
         smodule_id = $(".apd-subm-attr-button").first().attr("submodule_id");
     }
 

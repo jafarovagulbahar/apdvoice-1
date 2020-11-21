@@ -174,26 +174,24 @@ function dataTable2(){
 
 
 // Next Prev Modal Fn
-        $(document).ready(function () {
+     function nextPrev(){
+        $("div[id^='popup1']").each(function () {
 
-                $("div[id^='myModal']").each(function () {
+            var currentModal = $(this);
 
-                    var currentModal = $(this);
+            //click next
+            currentModal.find('.btn-next').click(function () {
+                currentModal.modal('hide');
+                currentModal.closest("div[id^='popup1']").nextAll("div[id^='popup1']").first().modal('show');
+            });
 
-                    //click next
-                    currentModal.find('.btn-next').click(function () {
-                        currentModal.modal('hide');
-                        currentModal.closest("div[id^='myModal']").nextAll("div[id^='myModal']").first().modal('show');
-                    });
-
-                    //click prev
-                    currentModal.find('.btn-prev').click(function () {
-                        currentModal.modal('hide');
-                        currentModal.closest("div[id^='myModal']").prevAll("div[id^='myModal']").first().modal('show');
-               });
-          });               
-     });
-
+            //click prev
+            currentModal.find('.btn-prev').click(function () {
+                currentModal.modal('hide');
+                currentModal.closest("div[id^='popup1']").prevAll("div[id^='popup1']").first().modal('show');
+       });
+  }); 
+     }
   
 
 // patient selectbox value append
@@ -461,6 +459,7 @@ function doctorDataTable(res){
 
   thead.append(p); 
 
+  
    var table=$('#DoctorDataTable');
    var obj = res.tbl[0].r;
    for (var i = 0; i < obj.length; i++) {
@@ -469,39 +468,40 @@ function doctorDataTable(res){
            .append($('<td>').addClass('apd-table-td').append(i+1))
            .append($('<td>').addClass('apd-table-td').append($('<a>').addClass('question-icon dropdown-toggle').attr('onclick','questioFnArea("'+obj[i].id+'")').attr('href','#').attr('data-toggle','dropdown').attr('aria-haspopup','true').attr('aria-expanded','false')
            .append($('<i>').addClass('fa fa-question')) )
-           .append($('<div>').addClass('dropdown-menu dropMenuQues').attr('aria-labelledby','apdQuestions'+obj[i].id)
+           .append($('<div>').addClass('dropdown-menu dropMenuQues').attr('id', 'dropMenuQues'+obj[i].id).attr('aria-labelledby','apdQuestions'+obj[i].id)
    
-           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#popup1').append('Şikayət'))
-           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal2').append('Anamnez'))
-           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal3').append('An.Vitae'))
-           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal4').append('Səs gigiyenası'))
-           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal5').append('Akustik Analiz'))
-           .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal6').append('Aerodinamik qiymətləndirmə (Spirometry test)'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal7').append('Perseptual qiymətləndirmə'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal8').append('VHI'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal9').append('Səs ilə əlaqəli həyat keyfiyyət indeksi'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal10').append('RSI'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal11').append('RFS'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal12').append('SVHI'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal13').append('PVHI Part I-F'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal14').append('PVHI Part II-P'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal15').append('PVHI Part III-E'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal16').append('DI'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal17').append('CSI'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal18').append('EAT'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal19').append('Ümumi Lor müayinəsi'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal20').append('VLS nəticələri'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal21').append('EMG'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal22').append('Video əlavə et'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal23').append('Şəkil əlavə et'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal24').append('Digər'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal25').append('Diaqnoz'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal26').append('Müalicə (Konservativ)'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal27').append('Müalicə (Səs terapiyası)'))
-           .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal28').append('Müalicə (Cərrahi)'))
+        //    .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#popup1').append('Şikayət'))
+        //    .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal2').append('Anamnez'))
+        //    .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal3').append('An.Vitae'))
+        //    .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal4').append('Səs gigiyenası'))
+        //    .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal5').append('Akustik Analiz'))
+        //    .append($('<a>').addClass('dropdown-item apd-subm-attr-button').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal6').append('Aerodinamik qiymətləndirmə (Spirometry test)'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal7').append('Perseptual qiymətləndirmə'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal8').append('VHI'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal9').append('Səs ilə əlaqəli həyat keyfiyyət indeksi'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal10').append('RSI'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal11').append('RFS'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal12').append('SVHI'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal13').append('PVHI Part I-F'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal14').append('PVHI Part II-P'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal15').append('PVHI Part III-E'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal16').append('DI'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal17').append('CSI'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal18').append('EAT'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal19').append('Ümumi Lor müayinəsi'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal20').append('VLS nəticələri'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal21').append('EMG'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal22').append('Video əlavə et'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal23').append('Şəkil əlavə et'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal24').append('Digər'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal25').append('Diaqnoz'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal26').append('Müalicə (Konservativ)'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal27').append('Müalicə (Səs terapiyası)'))
+        //    .append($('<a>').addClass('dropdown-item').attr('href','#').attr('data-toggle','modal').attr('data-target','#myModal28').append('Müalicə (Cərrahi)'))
               
            
-           )  )
+           ) 
+            )
 
            .append($('<td>').addClass('_0c').append(o.status))
            .append($('<td>').addClass('_1c').append(o.purpose))
@@ -1302,53 +1302,27 @@ function generalPatientFn(id){
 }
 
 // ekrana gelen buttonlar
+function questionDropMenu(res, id){
+    
+    document.getElementById('bodyDiv').innerHTML = res.kv.body
 
+   
+    subModal =$(".apd-subm-attr-button").first().attr("submodule_id");
+      
 
-function questioFnArea(id) {   
-    var json = { kv: {} };
-   
-    try {
-        json.kv.cookie = getToken();
-
-    } catch (err) {
-   
-    }
-   
-   json.kv.fkSessionId=id;
  
-  
-
-    var data = JSON.stringify(json);
-    $.ajax({
-        url: urlGl+"api/post/srv/serviceCrGenSubmoduleButtonList",
-        type: "POST",
-        data: data,
-        contentType: "application/json",
-        crossDomain: true,
-        async: false,
-        success: function (res) {
-            document.getElementById("bodyDiv").innerHTML = res.kv.body
-            console.log('===>',res.kv.body)
-            smodule_id = $(".apd-subm-attr-button").first().attr("submodule_id");
-            console.log(smodule_id)
-        },
-        error: function (res, status) {
-        //  lert(getMessage('somethingww'));
-        }
-    });      
+    // console.log(smodule_id)
+    $( ".apd-page-btn button" ).each(function() {
+        var val= $( this );
+        var subModal=val.attr("submodule_id")
+               var list=$("#dropMenuQues"+id);
+                var l=$('<div>').append($('<a>').attr('href','#').attr('onclick','questioModal('+id+')').attr('submodule_id', subModal).addClass('apd-subm-attr-button dropdown-item').attr('data-toggle','modal').attr('data-target','#popup1').append(val.text()))
+                list.append(l)
+      });
 }
 
-// end // ekrana gelen buttonlar
-
-function questionBody(res){
-    var bodyFn2=$('#questionBody').html('')
-    var b2=$('<div>')
-    .append($('<label>').append(res.kv.header))
-    .append($('<div>').append(res.kv.body))
-    bodyFn2.append(b2)
-}
-
-function questioModal(id) {   
+function questioFnArea(id) { 
+    
     console.log(id)
     var json = { kv: {} };
    
@@ -1358,11 +1332,64 @@ function questioModal(id) {
     } catch (err) {
    
     }
+   json.kv.fkSessionId=id;
+ 
+    var data = JSON.stringify(json);
+    $.ajax({
+        url: urlGl+"api/post/srv/serviceCrGenSubmoduleButtonList",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (res) {
+            questionDropMenu(res, id)           
+        },
+        error: function (res, status) {
+        //  lert(getMessage('somethingww'));
+        }
+    });      
+}
+
+
+// end // ekrana gelen buttonlar
+
+function questionBody(res){
+
+  
+    var bodyFn2=$('#questionBody').html('')
+    var b2=$('<div>')
+    .append($('<div>').addClass('modal-header').append($('<h5>').append(res.kv.header)))
+    .append($('<div>').addClass('quastionBodyModalClass col-12').append(res.kv.body))
+
+    .append($('<div>').addClass('modal-footer col-12')
+    .append($('<button>').attr('type', "button").addClass('btn btn-light btn-prev').append("Prev"))
+    .append($('<button>').attr('type', "button").addClass('btn btn-light btn-next').append("Next"))
+    .append($('<button>').attr('type', "button").addClass('btn btn-light').append("Insert"))
+    .append($('<button>').attr('type', "button").addClass('btn btn-light').append("Close"))
+    )
+
+
+    bodyFn2.append(b2)
+
+    $('.quastionBodyModalClass').children().addClass('row')
+    $('.dropMenuQues').children().addClass('selectStyle')
+}
+
+function questioModal(id) {   
+ 
+
+    var json = { kv: {} };
    
-    smodule_id = $(".apd-subm-attr-button").first().attr("submodule_id");
+    try {
+        json.kv.cookie = getToken();
+
+    } catch (err) {
+   
+    }
 
    json.kv.fkSessionId=id;
-   json.kv.fkSubmoduleId=smodule_id;
+   json.kv.fkSubmoduleId=subModal;
 
    
     var data = JSON.stringify(json);
@@ -1375,6 +1402,8 @@ function questioModal(id) {
         async: false,
         success: function (res) {
             questionBody(res)
+            nextPrev()
+            console.log()
             console.log('-------->', res)
             // console.log('===>', res.kv.body)
         },
@@ -1383,6 +1412,11 @@ function questioModal(id) {
         }
     });      
 }
+
+
+
+
+
 
 
 // Müayinə Siyahisi

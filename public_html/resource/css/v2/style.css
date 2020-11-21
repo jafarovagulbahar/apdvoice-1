@@ -25,7 +25,9 @@ text-decoration: none;
 h1, h2, h3, h4, h5, h6 {
 font-family: "Raleway", sans-serif;
 }
-
+.hidden{
+  display: none;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -994,7 +996,8 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
    height: 32px;
   line-height: 32px;
 }
-.apd-form-input{
+.apd-form-input,
+.apd-form-select{
   height: 32px;
   line-height: 32px;
   box-shadow: 0 1px 4px  #410a5347;
@@ -1086,15 +1089,7 @@ table.dataTable.dtr-inline.collapsed tbody td:first-child:before, table.dataTabl
 #incHead{
   background-color: #eeeeee;
 }
-#example3_filter{
-  display: none;
-}
-#example3_length{
-  display: none;
-}
-#example .buttons-colvis{
- display: none;
-}
-.apd-page-btn{
-  display: none;
+
+.apd-subm-attr-button{
+  cursor: pointer;
 }
