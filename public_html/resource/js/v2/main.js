@@ -98,16 +98,15 @@
       $(this).parent().toggleClass('active');
     });
 
-    $(document).click(function(e) {
-      var container = $(".mobile-nav, .mobile-nav-toggle, .dropMenu");
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-        if ($('body').hasClass('mobile-nav-active')) {
-          $('body').removeClass('mobile-nav-active');
-      
-
-        }
-      }
-    });
+//    $(document).click(function(e) {
+//      var container = $(".mobile-nav, .mobile-nav-toggle, .dropMenu");
+//      if (!container.is(e.target) && container.has(e.target).length === 0) {
+//        if ($('body').hasClass('mobile-nav-active')) {
+//          $('body').removeClass('mobile-nav-active');
+//        }
+//      }
+//    });
+    
   } else if ($(".mobile-nav, .mobile-nav-toggle").length) {
     $(".mobile-nav, .mobile-nav-toggle").hide();
   }

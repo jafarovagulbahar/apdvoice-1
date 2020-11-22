@@ -16,7 +16,6 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-
         <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.jqueryui.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.jqueryui.min.css">
@@ -26,12 +25,33 @@
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="resource/css/bootstrap.min.css" rel="stylesheet">
 
-
-
-
         <!-- Main CSS File -->
         <link href="resource/css/v2/style.css" rel="stylesheet">
         <link href="resource/css/v2/responsive.css" rel="stylesheet">
+
+        <script src="resource/js/jquery.min.js"></script>
+        <script src="resource/js/link.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="resource/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.jqueryui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script>  
+
+
+        <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
+        <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>
+        <script src="resource/js/v2/main.js"></script>
+        <script src="resource/js/v2/patientList.js"></script>
+        <script src="resource/js/v2/doctorDataTable.js"></script>
+        <script src="resource/js/v2/utility.js"></script>
 
     </head>
 
@@ -45,8 +65,8 @@
                     <!-- Home Navbar menu -->
                     <li class="drop-down"><a href="#">Ana səhifə <i class="fa fa-angle-down"></i></a>
                         <ul>
-                            <li class="dropMenu"> <a href="p2.html">Sessia data</a></li>
-                            <li class="dropMenu"> <a href="sessiaTable.html">Pasients</a></li>
+                            <li class="dropMenu "> <a  style="cursor:pointer"  onclick="menuAppointmentListLoad()" id="menuSessionList">Sessions</a></li>
+                            <li class="dropMenu "> <a  style="cursor:pointer" onclick="menuPatientListLoad()" >Pasients</a></li>
                         </ul>
                     </li>
                     <!-- Finance Navbar menu -->
@@ -88,9 +108,9 @@
 
                             <li><a onclick="javascript:logout()" href="#"><i class="fa fa-sign-out"></i><span qlang="">Logout</span></a></li> 
                         </ul> </li>
-                   </ul>
+                </ul>
                 </li>
-            </ul>
+                </ul>
             </nav><!-- .nav-menu -->
 
 
@@ -98,84 +118,97 @@
     </header><!-- End Header -->
 
     <div id="page"> 
-    <!-- ======= patient List ======= -->
-    <section id="apdDataList " class="patientList">
-        <div class="container">     
-            <div class="col-12">
-                <div class="row headerMenu">
+        <!-- ======= patient List ======= -->
+        <section id="apdDataList " class="patientList">
+            <div class="container">     
+                <div class="col-12">
+                    <div class="row headerMenu">
 
-                    <div class="col-lg-6 col-md-12">
-                        <div class="banner">
-                            <nav class="nav-menu2">
-                                <ul >
-                                    <li ><a href="#" data-toggle="modal" data-target="#newSessiaModal" ><i class="fa fa-heartbeat"></i><span>Yeni Sessiya</span></a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#incModal" onclick="getIncspection()"><i class="fa fa-user-md" aria-hidden="true" ></i><span>Müayinə siyahisi</span></a></li>
-                                    <li><a href="#"><i class="fa fa-stethoscope" aria-hidden="true"></i><span>Sessiya siyahisi</span></a></li>
-                                    <li><a href="#"><i class="fa fa-medkit" aria-hidden="true" ></i><span>Sessiyanı bitir</span></a></li>
-                                    <li><a href="#"><i class="fa fa-print" aria-hidden="true"></i><span>Hesabat/Print</span></a></li>
-                                </ul>
-                            </nav>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="banner">
+                                <nav class="nav-menu2">
+                                    <ul >
+                                        <li ><a href="#" data-toggle="modal" data-target="#newSessiaModal" ><i class="fa fa-heartbeat"></i><span>Yeni Sessiya</span></a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#incModal" onclick="getIncspection()"><i class="fa fa-user-md" aria-hidden="true" ></i><span>Müayinə siyahisi</span></a></li>
+                                        <li><a href="#"><i class="fa fa-stethoscope" aria-hidden="true"></i><span>Sessiya siyahisi</span></a></li>
+                                        <li><a href="#"><i class="fa fa-medkit" aria-hidden="true" ></i><span>Sessiyanı bitir</span></a></li>
+                                        <li><a href="#"><i class="fa fa-print" aria-hidden="true"></i><span>Hesabat/Print</span></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-6  col-md-12" >
-                        <div class="appointment-form-intro">
-                            <div class="d-flex">
-                                <div class="form-group">
-                                    <div class="form-field">
-                                        <div class="main patientSelectBox" id="">                    
-                                          <div class="dropdown dropdown-select " >
-                                            <span class="caret"></span>
-                                            <input type="text" class="form-control  dropdown-toggle" placeholder="Pasientlər" autocomplete="off" id="pasientInput" data-toggle="dropdown" onclick="pasientFilter()"/>
-                                              <div class="dropdown-menu"  aria-labelledby="dropPasient" id="patinetlistcombo">
-                                              
-                                              </div>
-                                          </div>
+                        <div class="col-lg-6  col-md-12" >
+                            <div class="appointment-form-intro">
+                                <div class="d-flex">
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <div class="main patientSelectBox" id="">                    
+                                                <div class="dropdown dropdown-select " >
+                                                    <span class="caret"></span>
+                                                    <input type="text" class="form-control  dropdown-toggle" placeholder="Pasientlər" autocomplete="off" id="pasientInput" data-toggle="dropdown" onclick="pasientFilter()"/>
+                                                    <div class="dropdown-menu"  aria-labelledby="dropPasient" id="patinetlistcombo">
 
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn-custom form-control add-patinet-btn"  data-toggle="modal" data-target="#pasientAddModal" onclick="AddNewPasientArea()"><b>Pasient əlavə et <i class="fa fa-plus"> </i></b></button>
+                                    <div class="form-group">
+                                        <button class="btn-custom form-control add-patinet-btn"  data-toggle="modal" data-target="#pasientAddModal" onclick="AddNewPasientArea()"><b>Pasient əlavə et <i class="fa fa-plus"> </i></b></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>   
-            </div>
-        
-
-             <!-- ======= sessia List ======= -->
-           
- <div class="col-md-12 apd-page-btn" id='bodyDiv' style="display: none;">
-
- </div>
-        
-        <button onclick="GetAppointmentList()">SessiaTable</button>
-        <div class="content">   
-          
-            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style="color:black"> 
-             
-                <thead id="DoctorDataTableHeader"> </thead>
-                <tbody id="DoctorDataTable">  </tbody>
-            </table>
-
-            <footer class="footer">
-                <div class="container col-12">
-
-                    <div class="mr-md-auto text-center">
-                        <div class="copyright mt-3">
-                            <strong> &copy; 2018 APDVoice. All Rights Reserved.</strong>
-                            <em>15551, Sepapaja 6, Tallinn Estonia</em>
-                            <em>info@apdvoice.com</em>
-                        </div>
-                    </div>
+                    </div>   
                 </div>
-            </footer>
-        </div>
 
-        </div>
-    </section>
+
+                <!-- ======= sessia List ======= -->
+
+                <div class="col-md-12 apd-page-btn" id='bodyDiv' style="display: none;">
+
+                </div>
+
+
+
+                <!--                <button onclick="GetAppointmentList()">SessiaTable</button>-->
+                <div class="content">   
+
+                    <div class="content-body-appointmentlist content-body-class" >
+                        <table id="appointmentListTable" class="table table-striped table-bordered" cellspacing="0" width="100%" style="color:black"> 
+
+                            <thead id="DoctorDataTableHeader"> </thead>
+                            <tbody id="DoctorDataTable">  </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content-body-patientlist content-body-class" >
+                        <table id="patientListTable" class="table table-striped table-bordered" cellspacing="0" width="100%" style="color:black"> 
+                            <thead id="PasinetTableThead"> </thead>
+                            <tbody id="PasinetTableBody"> asdfasfasdf </tbody>
+                        </table>
+                    </div>
+
+                    <footer class="footer">
+                        <div class="container col-12">
+
+                            <div class="mr-md-auto text-center">
+                                <div class="copyright mt-3">
+                                    <strong> &copy; 2018 APDVoice. All Rights Reserved.</strong>
+                                    <em>15551, Sepapaja 6, Tallinn Estonia</em>
+                                    <em>info@apdvoice.com</em>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+
+
+
+            </div>
+        </section>
 
     </div>
 
@@ -183,7 +216,7 @@
 
     <!--1. Pasient Add Modal -->
     <div class="modal fade" id="pasientAddModal" tabindex="-1" role="dialog" aria-labelledby="pasientAddModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document" style="min-width:80%">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="pasientAddModalLabel">Yeni Pasient Əlavə Et!</h5>
@@ -192,69 +225,70 @@
                     </button>
                 </div>
                 <!-- <form id="form_insertNewPatient" method="POST" action="srv/serviceCrInsertNewPatient"> -->
-                    <div class="modal-body patinetAddModalBody" id="patinetAddModalBody">
-                        <!-- ADD PATIENT  DYNAMIC -->
-                     </div>
-                     <div class="modal-footer" id="patientAddFooter">
-                      
-                     </div>
+                <div class="modal-body patinetAddModalBody" id="patinetAddModalBody">
+                    <!-- ADD PATIENT  DYNAMIC -->
+                </div>
+                <div class="modal-footer" id="patientAddFooter">
+                    <button type="button" class="btn btn-primary " onclick="patientList()">Add   </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
                 <!-- </form> -->
             </div>
         </div>
     </div>
 
 
-   <!--2. New sessia Modal -->
-   <div class="modal fade" id="newSessiaModal" tabindex="-1" role="dialog" aria-labelledby="newSessiaModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="newSessiaModalLabel">Yeni sessiya əlavə et</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <!--2. New sessia Modal -->
+    <div class="modal fade" id="newSessiaModal" tabindex="-1" role="dialog" aria-labelledby="newSessiaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newSessiaModalLabel">Yeni sessiya əlavə et</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="addNewSessia">
+                    <!-- New sessia Modal INTO-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="InsertNewSessia()">Yeni sessia yarat</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" >Bağla</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body" id="addNewSessia">
-        <!-- New sessia Modal INTO-->
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="InsertNewSessia()">Yeni sessia yarat</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Bağla</button>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Muayine siyahisi Modal -->
- 
-  <div class="modal fade" id="incModal" tabindex="-1" role="dialog" aria-labelledby="incModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" id="printSection">
-        <div class="modal-header noPrint" >
-            <button  class="word-export" href="javascript:void(0)" ><i class="fa fa-file-word-o"></i></button>
-        
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div id="constHeader">
+    <!-- Muayine siyahisi Modal -->
 
-        </div>
-        <div class="modal-body" id="page-content-word">
-       <table class="table table-hover table-bordered" border="1" >
-        <thead id="incHead">
+    <div class="modal fade" id="incModal" tabindex="-1" role="dialog" aria-labelledby="incModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="printSection">
+                <div class="modal-header noPrint" >
+                    <button  class="word-export" href="javascript:void(0)" ><i class="fa fa-file-word-o"></i></button>
 
-        </thead>
-          <tbody id="incBody">
-             
-            
-          </tbody>
-       </table>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="constHeader">
+
+                </div>
+                <div class="modal-body" id="page-content-word">
+                    <table class="table table-hover table-bordered" border="1" >
+                        <thead id="incHead">
+
+                        </thead>
+                        <tbody id="incBody">
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
-      
-      </div>
     </div>
-  </div>
 
 
 
@@ -262,185 +296,185 @@
     <div class="modal fade" id="popup1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog patinetAddModalBody"  >
             <div class="modal-content" id="questionBody" >
-              
-              
+
+
             </div>
         </div>
     </div>
 
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog patinetAddModalBody">
-           <div class="modal-content">
-              <div class="modal-header">
-                  <div class="col-3 d-flex justify-content-left">
-                     <h3> 1 / 3</h3>
-                  </div> 
-     
-                  <div class="form-group col-md-6 patientSelectBox  d-flex justify-content-center"> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Şikayət</option>
-                        <option>Anamnez</option>
-                        <option>An.Vitae</option>
-                        <option>Səs gigiyenası</option>
-                        <option>Akustik Analiz</option>
-                        <option>Aerodinamik qiymətləndirmə (Spirometry test)</option>
-                        <option>Perseptual qiymətləndirmə</option>
-                        <option>VHI</option>
-                        <option>Səs ilə əlaqəli həyat keyfiyyət indeksi</option>
-                        <option>RSI</option>
-                        <option>RFS</option>
-                        <option>SVHI</option>
-                        <option>PVHI Part I-F</option>
-                        <option>PVHI Part II-P</option>
-                        <option>PVHI Part III-E</option>
-                        <option>DI</option>
-                        <option>CSI</option>
-                        <option>EAT</option>
-                        <option>Ümumi Lor müayinəsi</option>
-                        <option>VLS nəticələri</option>
-                        <option>EMG</option>
-                        <option>Video əlavə et</option>
-                        <option>Şəkil əlavə et</option>
-                        <option>Digər</option>
-                        <option>Diaqnoz</option>
-                        <option>Müalicə (Konservativ)</option>
-                        <option>Müalicə (Səs terapiyası)</option>
-                        <option>Müalicə (Cərrahi)</option>
-                      </select>
-                     </div>
-     
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-             </div>
-                <div class="modal-body">       
-               <fieldset style="display: block;">
-                 
-                       
-                  <div class="form-bottom">
-                   <div class="row">
-     
-                      <div class="form-group col-md-12"> 
-                      <label qlang=""><i class="fa fa-user"></i> Patient ID </label> 
-                      <input class="form-control  apd-form-input" disabled type="text"  placeholder="34FF"> 
-                     </div>
-     
-                    <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Səsdə Yorulma</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                     <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Səsdə İncələmə</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                      <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Səsdə Gərginlik</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                      <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Udqunmanın Çətinləşməsi</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                     <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang=""> Boğazda ağrı, batma hissi</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                     <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Səs batması</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                     <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Səsdə qalınlaşma</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                     <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Səsdə boğuqluq</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                     <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Səsdə Kobudluq</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                      <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">Tənginəfəslik</label> 
-                       <select class="noSearch selectStyle" >
-                        <option class="active"></option>
-                        <option>Xeyir</option>
-                        <option>Bəli</option>
-                        <option>---</option>
-                      </select>
-                     </div>
-     
-                       <div class="form-group col-md-4 patientSelectBox"> 
-                      <label qlang="">İzahat</label> 
-                         <input class="form-control  apd-form-input" type="text" > 
-                     </div>    
-     
-                         </div>
-                       </div>
-              </fieldset>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-3 d-flex justify-content-left">
+                        <h3> 1 / 3</h3>
+                    </div> 
+
+                    <div class="form-group col-md-6 patientSelectBox  d-flex justify-content-center"> 
+                        <select class="noSearch selectStyle" >
+                            <option class="active"></option>
+                            <option>Şikayət</option>
+                            <option>Anamnez</option>
+                            <option>An.Vitae</option>
+                            <option>Səs gigiyenası</option>
+                            <option>Akustik Analiz</option>
+                            <option>Aerodinamik qiymətləndirmə (Spirometry test)</option>
+                            <option>Perseptual qiymətləndirmə</option>
+                            <option>VHI</option>
+                            <option>Səs ilə əlaqəli həyat keyfiyyət indeksi</option>
+                            <option>RSI</option>
+                            <option>RFS</option>
+                            <option>SVHI</option>
+                            <option>PVHI Part I-F</option>
+                            <option>PVHI Part II-P</option>
+                            <option>PVHI Part III-E</option>
+                            <option>DI</option>
+                            <option>CSI</option>
+                            <option>EAT</option>
+                            <option>Ümumi Lor müayinəsi</option>
+                            <option>VLS nəticələri</option>
+                            <option>EMG</option>
+                            <option>Video əlavə et</option>
+                            <option>Şəkil əlavə et</option>
+                            <option>Digər</option>
+                            <option>Diaqnoz</option>
+                            <option>Müalicə (Konservativ)</option>
+                            <option>Müalicə (Səs terapiyası)</option>
+                            <option>Müalicə (Cərrahi)</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                   <div class="modal-footer col-12">
-                 <button type="button" class="btn btn-default btn-prev">Prev</button>
-                 <button type="button" class="btn btn-default btn-next">Next</button>
-                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-           </div>
+                <div class="modal-body">       
+                    <fieldset style="display: block;">
+
+
+                        <div class="form-bottom">
+                            <div class="row">
+
+                                <div class="form-group col-md-12"> 
+                                    <label qlang=""><i class="fa fa-user"></i> Patient ID </label> 
+                                    <input class="form-control  apd-form-input" disabled type="text"  placeholder="34FF"> 
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Səsdə Yorulma</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Səsdə İncələmə</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Səsdə Gərginlik</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Udqunmanın Çətinləşməsi</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang=""> Boğazda ağrı, batma hissi</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Səs batması</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Səsdə qalınlaşma</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Səsdə boğuqluq</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Səsdə Kobudluq</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">Tənginəfəslik</label> 
+                                    <select class="noSearch selectStyle" >
+                                        <option class="active"></option>
+                                        <option>Xeyir</option>
+                                        <option>Bəli</option>
+                                        <option>---</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4 patientSelectBox"> 
+                                    <label qlang="">İzahat</label> 
+                                    <input class="form-control  apd-form-input" type="text" > 
+                                </div>    
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer col-12">
+                    <button type="button" class="btn btn-default btn-prev">Prev</button>
+                    <button type="button" class="btn btn-default btn-next">Next</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-     </div>
+    </div>
 
     <!-- Question Patient Modal 2-->
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -448,45 +482,45 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="col-3 d-flex justify-content-left">
-                       <h3> 2 / 3</h3>
+                        <h3> 2 / 3</h3>
                     </div> 
-       
+
                     <div class="form-group col-md-6 patientSelectBox  d-flex justify-content-center"> 
-                         <select class="noSearch selectStyle" >
-                          <option class="active"></option>
-                          <option>Şikayət</option>
-                          <option>Anamnez</option>
-                          <option>An.Vitae</option>
-                          <option>Səs gigiyenası</option>
-                          <option>Akustik Analiz</option>
-                          <option>Aerodinamik qiymətləndirmə (Spirometry test)</option>
-                          <option>Perseptual qiymətləndirmə</option>
-                          <option>VHI</option>
-                          <option>Səs ilə əlaqəli həyat keyfiyyət indeksi</option>
-                          <option>RSI</option>
-                          <option>RFS</option>
-                          <option>SVHI</option>
-                          <option>PVHI Part I-F</option>
-                          <option>PVHI Part II-P</option>
-                          <option>PVHI Part III-E</option>
-                          <option>DI</option>
-                          <option>CSI</option>
-                          <option>EAT</option>
-                          <option>Ümumi Lor müayinəsi</option>
-                          <option>VLS nəticələri</option>
-                          <option>EMG</option>
-                          <option>Video əlavə et</option>
-                          <option>Şəkil əlavə et</option>
-                          <option>Digər</option>
-                          <option>Diaqnoz</option>
-                          <option>Müalicə (Konservativ)</option>
-                          <option>Müalicə (Səs terapiyası)</option>
-                          <option>Müalicə (Cərrahi)</option>
+                        <select class="noSearch selectStyle" >
+                            <option class="active"></option>
+                            <option>Şikayət</option>
+                            <option>Anamnez</option>
+                            <option>An.Vitae</option>
+                            <option>Səs gigiyenası</option>
+                            <option>Akustik Analiz</option>
+                            <option>Aerodinamik qiymətləndirmə (Spirometry test)</option>
+                            <option>Perseptual qiymətləndirmə</option>
+                            <option>VHI</option>
+                            <option>Səs ilə əlaqəli həyat keyfiyyət indeksi</option>
+                            <option>RSI</option>
+                            <option>RFS</option>
+                            <option>SVHI</option>
+                            <option>PVHI Part I-F</option>
+                            <option>PVHI Part II-P</option>
+                            <option>PVHI Part III-E</option>
+                            <option>DI</option>
+                            <option>CSI</option>
+                            <option>EAT</option>
+                            <option>Ümumi Lor müayinəsi</option>
+                            <option>VLS nəticələri</option>
+                            <option>EMG</option>
+                            <option>Video əlavə et</option>
+                            <option>Şəkil əlavə et</option>
+                            <option>Digər</option>
+                            <option>Diaqnoz</option>
+                            <option>Müalicə (Konservativ)</option>
+                            <option>Müalicə (Səs terapiyası)</option>
+                            <option>Müalicə (Cərrahi)</option>
                         </select>
-                       </div>
-       
-                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-               </div>
+                    </div>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
                 <div class="modal-body">       
                     <fieldset style="display: block;">          
                         <div class="form-bottom">
@@ -567,45 +601,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="col-3 d-flex justify-content-left">
-                       <h3> 3 / 3</h3>
+                        <h3> 3 / 3</h3>
                     </div> 
-       
+
                     <div class="form-group col-md-6 patientSelectBox  d-flex justify-content-center"> 
-                         <select class="noSearch selectStyle" >
-                          <option class="active"></option>
-                          <option>Şikayət</option>
-                          <option>Anamnez</option>
-                          <option>An.Vitae</option>
-                          <option>Səs gigiyenası</option>
-                          <option>Akustik Analiz</option>
-                          <option>Aerodinamik qiymətləndirmə (Spirometry test)</option>
-                          <option>Perseptual qiymətləndirmə</option>
-                          <option>VHI</option>
-                          <option>Səs ilə əlaqəli həyat keyfiyyət indeksi</option>
-                          <option>RSI</option>
-                          <option>RFS</option>
-                          <option>SVHI</option>
-                          <option>PVHI Part I-F</option>
-                          <option>PVHI Part II-P</option>
-                          <option>PVHI Part III-E</option>
-                          <option>DI</option>
-                          <option>CSI</option>
-                          <option>EAT</option>
-                          <option>Ümumi Lor müayinəsi</option>
-                          <option>VLS nəticələri</option>
-                          <option>EMG</option>
-                          <option>Video əlavə et</option>
-                          <option>Şəkil əlavə et</option>
-                          <option>Digər</option>
-                          <option>Diaqnoz</option>
-                          <option>Müalicə (Konservativ)</option>
-                          <option>Müalicə (Səs terapiyası)</option>
-                          <option>Müalicə (Cərrahi)</option>
+                        <select class="noSearch selectStyle" >
+
                         </select>
-                       </div>
-       
-                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-               </div>
+                    </div>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
                 <div class="modal-body">       
                     <fieldset style="display: block;">           
                         <div class="form-bottom">
@@ -664,60 +670,38 @@
             </div>
         </div>
     </div>
-   
 
 
-    <script src="resource/js/jquery.min.js"></script>
-    <script src="resource/js/link.js"></script>
-    <script src="resource/js/apd-common.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="resource/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.jqueryui.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script>  
 
 
-    <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
-    <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>
-
-    <script src="resource/js/v2/main.js"></script>
-    <!-- <script src="resource/js/v2/selectBox.js"></script> -->
-    <script src="resource/js/v2/patientList.js"></script>
-    <script src="resource/js/v2/doctorDataTable.js"></script>
 
     <script type="text/javascript">
 
-      $('.dropMenu a').click(function (event) {
-        link=$(this).attr('href');
-        $.ajax({
-            url: link,
-        })
-        .done(function (html) {
-            $('#page').empty().append(html);
-        })
-        .fail(function () {
-            console.log('error');
-        })
-        .always(function(html){
-            console.log('complate');
-           
-        })
-        return false;
-    });
+        //        $('.dropMenu a').click(function (event) {
+        //            link = $(this).attr('href');
+        //            $.ajax({
+        //                url: link,
+        //            })
+        //                    .done(function (html) {
+        //                        $('#page').empty().append(html);
+        //                    })
+        //                    .fail(function () {
+        //                        console.log('error');
+        //                    })
+        //                    .always(function (html) {
+        //                        console.log('complate');
+        //
+        //                    })
+        //            return false;
+        //        });
 
-    jQuery(document).ready(function($) {
-        $(".word-export").click(function(event) {
-            $("#page-content-word").wordExport();
+        GetAppointmentList();
+
+        jQuery(document).ready(function ($) {
+            $(".word-export").click(function (event) {
+                $("#page-content-word").wordExport();
+            });
         });
-    });
 
 
 
